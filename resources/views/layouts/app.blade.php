@@ -2,6 +2,18 @@
 <html lang="pt-BR">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P43BVDP4QL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-P43BVDP4QL');
+    </script>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Situação da Entrega')</title>
@@ -36,19 +48,21 @@
     <!-- JSON-LD WebSite Schema -->
     <script type="application/ld+json">
         @php
-            $jsonLd = [
-                "@context" => "https://schema.org",
-                "@type" => "WebSite",
-                "name" => "Situação da Entrega",
-                "url" => url('/'),
-                "potentialAction" => [
-                    "@type" => "SearchAction",
-                    "target" => url('/')."/buscar?q={search_term_string}",
-                    "query-input" => "required name=search_term_string"
-                ]
-            ];
-        @endphp
-        {!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+        $jsonLd = [
+            "@context" => "https://schema.org",
+            "@type" => "WebSite",
+            "name" => "Situação da Entrega",
+            "url" => url('/'),
+            "potentialAction" => [
+                "@type" => "SearchAction",
+                "target" => url('/').
+                "/buscar?q={search_term_string}",
+                "query-input" => "required name=search_term_string"
+            ]
+        ];
+        @endphp {
+            !!json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!
+        }
     </script>
 
     <link rel="canonical" href="{{ url()->current() }}">
@@ -73,26 +87,29 @@
         <header id="id-header" role="banner">
             <div class="header-container">
                 @if(request()->routeIs('home'))
-                    <h1>
-                        <a href="{{ route('home') }}" title="Ir para a página inicial">
-                            <img src="{{ asset('favicon.svg') }}" alt="Situação da Entrega Logo" title="Situação da Entrega - Logo" width="36" height="36" style="vertical-align: middle; margin-right: 8px;">
-                            Situação da Entrega
-                        </a>
-                    </h1>
+                <h1>
+                    <a href="{{ route('home') }}" title="Ir para a página inicial">
+                        <img src="{{ asset('favicon.svg') }}" alt="Situação da Entrega Logo" title="Situação da Entrega - Logo" width="36" height="36" style="vertical-align: middle; margin-right: 8px;">
+                        Situação da Entrega
+                    </a>
+                </h1>
                 @else
-                    <div class="site-title">
-                        <a href="{{ route('home') }}" title="Ir para a página inicial">
-                            <img src="{{ asset('favicon.svg') }}" alt="Situação da Entrega Logo" title="Situação da Entrega - Logo" width="36" height="36" style="vertical-align: middle; margin-right: 8px;">
-                            Situação da Entrega
-                        </a>
-                    </div>
+                <div class="site-title">
+                    <a href="{{ route('home') }}" title="Ir para a página inicial">
+                        <img src="{{ asset('favicon.svg') }}" alt="Situação da Entrega Logo" title="Situação da Entrega - Logo" width="36" height="36" style="vertical-align: middle; margin-right: 8px;">
+                        Situação da Entrega
+                    </a>
+                </div>
                 @endif
 
                 <!-- Busca Global -->
                 <form action="{{ route('busca') }}" method="GET" class="header-search d-none d-md-flex" role="search">
                     <input type="search" name="q" placeholder="Buscar rastreio, problema..." aria-label="Buscar" required>
                     <button type="submit" aria-label="Buscar">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
                     </button>
                 </form>
             </div>

@@ -1,59 +1,276 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📦 Situação da Entrega
+
+> **Entenda rapidamente o que está acontecendo com sua entrega.**
+
+Plataforma colaborativa onde usuários podem consultar e relatar situações de entregas de diversas transportadoras brasileiras. Com painel administrativo completo, blog integrado e rastreamento via SEO otimizado.
+
+🌐 **Produção:** [situacaodaentrega.com.br](https://situacaodaentrega.com.br)
+
+---
+
+## 📋 Índice
+
+- [Visão Geral](#-visão-geral)
+- [Stack Tecnológica](#-stack-tecnológica)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Models (Eloquent)](#-models-eloquent)
+- [Rotas Principais](#-rotas-principais)
+- [Painel Administrativo](#-painel-administrativo)
+- [Setup Local](#-setup-local)
+- [Deploy (cPanel)](#-deploy-cpanel)
+- [Git Workflow](#-git-workflow)
+- [Versionamento](#-versionamento)
+
+---
+
+## 🎯 Visão Geral
+
+O **Situação da Entrega** é uma aplicação web focada em ajudar consumidores brasileiros a entenderem o status de suas encomendas. Funcionalidades principais:
+
+- **Consulta de situações** por transportadora, região e tipo de problema
+- **Relatos colaborativos** — usuários compartilham suas experiências
+- **Blog & Dicas** — artigos sobre rastreamento, importação e logística
+- **Painel Admin** — dashboard com métricas, CRUD de posts, gerenciador de mídia
+- **SEO avançado** — Schema.org, Open Graph, sitemap dinâmico, meta tags otimizadas
+- **Google Analytics** — tracking gerenciado via painel admin (configurável)
+
+---
+
+## 🛠 Stack Tecnológica
+
+| Camada        | Tecnologia                          |
+|---------------|-------------------------------------|
+| **Framework** | Laravel 11 (PHP 8.3)               |
+| **Banco**     | MySQL 8                            |
+| **Frontend**  | Blade Templates + Vanilla CSS + JS |
+| **Gráficos**  | Chart.js (via `graficos.js`)       |
+| **Servidor**  | cPanel (Apache) + Git Deploy       |
+| **Tracking**  | Google Analytics (GA4)             |
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+situacao-da-entrega/
+├── app/
+│   ├── Console/              # Comandos Artisan customizados
+│   ├── Http/
+│   │   ├── Controllers/      # 24 controllers (Admin + Público)
+│   │   ├── Middleware/        # Middleware customizado
+│   │   └── Requests/         # Form Requests de validação
+│   ├── Models/               # 10 models Eloquent
+│   ├── Providers/            # Service Providers
+│   ├── Services/             # Camada de serviços
+│   └── ViewModels/           # View Models
+├── config/                   # Configurações Laravel
+├── database/
+│   ├── migrations/           # Migrations do banco
+│   └── seeders/              # Seeders de dados
+├── public/
+│   ├── css/                  # Stylesheets (index.css, search.css, admin.css)
+│   ├── js/                   # Scripts (graficos.js)
+│   ├── favicon.svg           # Ícone do site
+│   └── logo.svg              # Logo principal
+├── resources/views/
+│   ├── admin/                # Views do painel admin (8 arquivos)
+│   ├── components/           # Componentes Blade reutilizáveis
+│   ├── errors/               # Páginas de erro customizadas
+│   ├── institucional/        # Páginas institucionais (6 arquivos)
+│   ├── layouts/              # Layouts base (app.blade.php, admin.blade.php)
+│   ├── pages/                # Páginas públicas (21 arquivos)
+│   └── partials/             # Partials reutilizáveis
+├── routes/
+│   ├── web.php               # Rotas web (pública + admin)
+│   ├── api.php               # Rotas API
+│   └── console.php           # Comandos de console
+├── .agent/workflows/         # Workflows automatizados (git-workflow)
+├── CHANGELOG.md              # Histórico de mudanças do Laravel base
+├── RELATORIO_MUDANCAS.md     # Relatório de implementações do projeto
+└── README.md                 # Este arquivo
+```
+
+---
+
+## 🗃 Models (Eloquent)
+
+| Model             | Descrição                                          |
+|-------------------|----------------------------------------------------|
+| `User`            | Usuários do sistema (admin)                        |
+| `Transportadora`  | Transportadoras cadastradas (Correios, Jadlog...)  |
+| `Problema`        | Tipos de problemas de entrega                      |
+| `Regiao`          | Regiões geográficas                                |
+| `Relato`          | Relatos dos usuários sobre entregas                |
+| `Post`            | Posts do blog (título, slug, conteúdo, categoria)  |
+| `Media`           | Gerenciador de mídia (imagens com alt text)        |
+| `SearchLog`       | Log de buscas realizadas no site                   |
+| `AdminLog`        | Log de ações administrativas                       |
+| `Configuracao`    | Configurações dinâmicas do sistema (GA4, etc.)     |
+
+---
+
+## 🛣 Rotas Principais
+
+### Públicas
+
+| Rota                  | Descrição                          |
+|-----------------------|------------------------------------|
+| `/`                   | Página inicial (home)              |
+| `/buscar`             | Busca global                       |
+| `/relatar`            | Formulário de relato               |
+| `/blog`               | Listagem de posts do blog          |
+| `/blog/{slug}`        | Post individual                    |
+| `/metodologia`        | Página de metodologia              |
+| `/aviso-legal`        | Aviso legal                        |
+| `/politica-privacidade` | Política de privacidade          |
+| `/sitemap.xml`        | Sitemap dinâmico                   |
+
+### Admin (protegidas por auth)
+
+| Rota                           | Descrição                    |
+|--------------------------------|------------------------------|
+| `/admin/dash-hostamazonas`     | Login do admin               |
+| `/admin/visao-geral`           | Dashboard principal          |
+| `/admin/blog`                  | CRUD de posts do blog        |
+| `/admin/midia`                 | Gerenciador de mídia         |
+| `/admin/configuracoes`         | Configurações do sistema     |
+
+---
+
+## 🔐 Painel Administrativo
+
+- **Login seguro** com rota personalizada (`/admin/dash-hostamazonas`)
+- **Dashboard** com métricas: total de relatos, quizzes ativos, respostas recentes
+- **Blog** — CRUD completo com editor, upload de capa, categorias e status
+- **Mídia** — Upload drag-and-drop, alt text obrigatório, cópia de URL
+- **Configurações** — Scripts de tracking (GA4) gerenciados via interface
+- **Relatórios** — Visualização e reset de logs de busca
+
+---
+
+## ⚙️ Setup Local
+
+### Pré-requisitos
+
+- PHP 8.3+
+- Composer
+- MySQL 8+
+- Laragon (recomendado no Windows)
+
+### Instalação
+
+```bash
+# Clonar repositório
+git clone https://github.com/jorleytavares/situacao-da-entrega.git
+cd situacao-da-entrega
+
+# Instalar dependências
+composer install
+
+# Configurar ambiente
+cp .env.example .env
+php artisan key:generate
+
+# Editar .env com credenciais do banco local
+# DB_DATABASE=situacao_entrega
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# Executar migrations e seeders
+php artisan migrate --seed
+
+# Criar link simbólico do storage
+php artisan storage:link
+
+# Iniciar servidor
+php artisan serve
+```
+
+O site estará disponível em `http://localhost:8000`.
+
+---
+
+## 🚀 Deploy (cPanel)
+
+### Estrutura no Servidor
+
+```
+/home/curr6441/
+├── repositories/
+│   └── situacaodaentrega.com.br/    ← Clone do GitHub
+│       ├── app/
+│       ├── public/                   ← Apontado via symlink
+│       ├── .env                      ← Configurado SOMENTE no servidor
+│       └── ...
+└── situacaodaentrega.com.br         ← Symlink → .../public
+```
+
+### Deploy Rápido (sem migrations)
+
+```bash
+cd /home/curr6441/repositories/situacaodaentrega.com.br
+git pull origin main
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+### Deploy Completo (com migrations ou dependências)
+
+```bash
+cd /home/curr6441/repositories/situacaodaentrega.com.br
+git pull origin main
+composer install --no-dev --optimize-autoloader
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+---
+
+## 🔀 Git Workflow
+
+| Branch        | Propósito                                    |
+|---------------|----------------------------------------------|
+| `main`        | Código estável, pronto para produção         |
+| `develop`     | Branch de integração                         |
+| `feature/*`   | Novas funcionalidades                        |
+| `fix/*`       | Correções de bugs                            |
+| `hotfix/*`    | Correções urgentes em produção               |
+
+### Commits Semânticos
+
+```
+feat:      Nova funcionalidade
+fix:       Correção de bug
+style:     Mudanças visuais/CSS
+refactor:  Refatoração sem mudar comportamento
+docs:      Documentação
+chore:     Manutenção
+```
+
+> Para detalhes completos, consulte `.agent/workflows/git-workflow.md`
+
+---
+
+## 📌 Versionamento
+
+Formato: **`vMAJOR.MINOR.PATCH`** (SemVer)
+
+| Versão   | Data       | Descrição                                           |
+|----------|------------|-----------------------------------------------------|
+| `v1.0.0` | 2026-02-10 | Deploy inicial — aplicação completa em produção     |
+| `v1.0.1` | 2026-02-10 | Fix GA4 duplicado, tracking via admin               |
+
+---
+
+## 📄 Licença
+
+Este projeto é privado e de propriedade de **Host Amazonas**.
+
+---
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  Desenvolvido com ❤️ por <a href="https://hostamazonas.com.br">Host Amazonas</a>
 </p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

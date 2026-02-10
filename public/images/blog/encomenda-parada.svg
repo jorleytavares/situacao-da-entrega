@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="420" fill="#F0F2F5"/>
+    <circle cx="400" cy="210" r="160" fill="#E1E4E8" opacity="0.5"/>
+    
+    <!-- Caixa Isométrica (Fechada) -->
+    <path d="M400 120 L270 195 L400 270 L530 195 L400 120Z" fill="#FFFFFF" stroke="#128C7E" stroke-width="4"/>
+    <path d="M270 195 V320 L400 395 V270 L270 195Z" fill="#D1FAE5" stroke="#128C7E" stroke-width="4"/>
+    <path d="M530 195 V320 L400 395 V270 L530 195Z" fill="#A7F3D0" stroke="#128C7E" stroke-width="4"/>
+    
+    <!-- Lupa de Inspeção -->
+    <g transform="translate(380, 180) rotate(-15)">
+        <circle cx="50" cy="50" r="50" fill="rgba(255,255,255,0.8)" stroke="#F59E0B" stroke-width="6"/>
+        <line x1="85" y1="85" x2="140" y2="140" stroke="#F59E0B" stroke-width="12" stroke-linecap="round"/>
+        <!-- Detalhes dentro da lupa -->
+        <path d="M30 50 L45 65 L70 35" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    
+    <!-- Texto ilustrativo -->
+    <text x="400" y="380" font-family="Arial, sans-serif" font-size="24" fill="#54656F" text-anchor="middle" font-weight="bold">FISCALIZAÇÃO ADUANEIRA</text>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fundo Arredondado (Estilo App Icon) -->
+    <rect width="512" height="512" rx="100" fill="#25D366"/>
+    
+    <!-- Sombra suave para a caixa -->
+    <ellipse cx="256" cy="400" rx="140" ry="20" fill="#000000" fill-opacity="0.1"/>
+
+    <!-- Caixa Principal (Isométrica) -->
+    <path d="M256 120 L106 195 L256 270 L406 195 L256 120Z" fill="#F0F2F5" stroke="#FFFFFF" stroke-width="8"/>
+    <path d="M106 195 V345 L256 420 V270 L106 195Z" fill="#E1E4E8" stroke="#FFFFFF" stroke-width="8"/>
+    <path d="M406 195 V345 L256 420 V270 L406 195Z" fill="#D1D5DB" stroke="#FFFFFF" stroke-width="8"/>
+    
+    <!-- Ícone de Status (Lupa/Check) centralizado na frente -->
+    <circle cx="330" cy="330" r="80" fill="#FFFFFF" stroke="#128C7E" stroke-width="15"/>
+    
+    <!-- Lupa/Check Symbol -->
+    <path d="M300 330 L320 350 L360 310" fill="none" stroke="#25D366" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Elementos de "Rastreio" (Ondas) -->
+    <path d="M160 140 A 60 60 0 0 1 200 100" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+    <path d="M130 130 A 100 100 0 0 1 190 70" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" opacity="0.4"/>
+</svg>

@@ -1,0 +1,427 @@
+/**
+ * Situação da Entrega - Redesign Moderno (Estilo WhatsApp Clean)
+ * Foco: Legibilidade, Contexto Visual, Acessibilidade
+ */
+
+:root {
+    /* Paleta de Cores Refinada */
+    --cor-primaria: #128C7E;
+    --cor-primaria-clara: #25D366;
+    --cor-primaria-bg: #E3FCEF;
+
+    --cor-fundo: #F0F2F5;
+    /* Cinza claro moderno */
+    --cor-fundo-card: #FFFFFF;
+
+    --cor-texto: #111B21;
+    --cor-texto-secundario: #54656F;
+    --cor-borda: #E9EDEF;
+
+    --cor-destaque: #00A67E;
+    --cor-erro: #F15C6D;
+
+    /* Tipografia Escalável */
+    --fonte-principal: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    /* Espaçamento e Layout */
+    --raio-card: 16px;
+    --sombra-suave: 0 2px 5px rgba(11, 20, 26, 0.05);
+    --sombra-hover: 0 4px 12px rgba(11, 20, 26, 0.1);
+
+    --container-width: 1000px;
+}
+
+/* Reset Moderno */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+    font-size: 16px;
+    /* Fonte base aumentada */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Principal */
+#id-layout-principal {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Moderno */
+#id-header {
+    background: var(--cor-primaria);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#id-header h1 a,
+#id-header .site-title a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.35rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Conteúdo */
+#id-conteudo-principal {
+    flex: 1;
+    max-width: var(--container-width);
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+/* Cards e Blocos */
+.bloco {
+    background: var(--cor-fundo-card);
+    border-radius: var(--raio-card);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--sombra-suave);
+    border: 1px solid var(--cor-borda);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bloco.destaque {
+    background: var(--cor-primaria-bg);
+    border-color: rgba(37, 211, 102, 0.2);
+}
+
+.bloco-titulo {
+    font-size: 1.5rem;
+    color: var(--cor-texto);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bloco-texto {
+    color: var(--cor-texto-secundario);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+/* Grid de Problemas (Cards Visuais) */
+#id-lista-problemas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.card-problema {
+    background: white;
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--cor-texto);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-problema:hover {
+    border-color: var(--cor-primaria-clara);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-hover);
+}
+
+.card-problema strong {
+    font-size: 1.15rem;
+    display: block;
+}
+
+.card-problema span {
+    font-size: 0.95rem;
+    color: var(--cor-texto-secundario);
+}
+
+/* Links de Navegação */
+.lista-simples {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.lista-simples li a {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    background: var(--cor-fundo);
+    border-radius: 20px;
+    color: var(--cor-texto);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+    font-size: 0.95rem;
+}
+
+.lista-simples li a:hover {
+    background: #E0E0E0;
+    color: var(--cor-primaria);
+}
+
+/* Formulários */
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 0; /* Controlado pelo form-group */
+    background: #FCFCFC;
+    transition: all 0.2s ease;
+    appearance: none; /* Remove estilos nativos do iOS/Android */
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+    font-size: 0.95rem;
+}
+
+.texto-ajuda {
+    font-size: 0.85rem;
+    color: var(--cor-texto-secundario);
+    margin-top: 0.5rem;
+}
+
+/* Layout de Formulário */
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.metade {
+    flex: 1;
+}
+
+/* Checkbox Card Elegante */
+.checkbox-card {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    padding: 1rem;
+    background: white;
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.checkbox-card:hover {
+    border-color: var(--cor-primaria);
+    background: var(--cor-primaria-bg);
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-suave);
+}
+
+.checkbox-card input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--cor-texto-secundario);
+    border-radius: 6px;
+    margin-right: 1rem;
+    position: relative;
+    cursor: pointer;
+    background: white;
+    flex-shrink: 0; /* Impede que o checkbox encolha */
+    transition: all 0.2s ease;
+}
+
+.checkbox-card input[type="checkbox"]:checked {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.checkbox-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-titulo {
+    font-weight: 600;
+    color: var(--cor-texto);
+    font-size: 1rem;
+}
+
+.checkbox-desc {
+    font-size: 0.85rem;
+    color: var(--cor-texto-secundario);
+    margin-top: 0.1rem;
+}
+
+.botao {
+    background: var(--cor-primaria-clara);
+    color: #075E54;
+    font-weight: 700;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.botao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+    background: #1FD160;
+}
+
+/* Footer */
+#id-footer {
+    background: white;
+    border-top: 1px solid var(--cor-borda);
+    padding: 3rem 1.5rem;
+    margin-top: auto;
+    text-align: center;
+    color: var(--cor-texto-secundario);
+}
+
+#id-footer a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Utilitários Visuais */
+.icone-inline {
+    width: 24px;
+    height: 24px;
+    vertical-align: text-bottom;
+    margin-right: 0.5rem;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    #id-conteudo-principal {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .bloco {
+        padding: 1.5rem;
+    }
+
+    .bloco-titulo {
+        font-size: 1.3rem;
+    }
+}
+
+/* Acessibilidade */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Crédito no Rodapé (Host Amazonas) */
+.footer-credit {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-credit a {
+    background-color: #F0FDF4; /* Verde bem suave */
+    color: #15803D !important; /* Verde escuro elegante */
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid #DCFCE7;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.footer-credit a:hover {
+    background-color: #DCFCE7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(22, 101, 52, 0.1);
+}
+
+@media (max-width: 600px) {
+    .footer-credit {
+        margin-top: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .footer-credit a {
+        width: 100%;
+        justify-content: center;
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+}

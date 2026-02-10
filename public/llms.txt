@@ -1,0 +1,69 @@
+# Situação da Entrega
+
+> Site independente que publica dados agregados e anônimos
+> sobre problemas em entregas no Brasil.
+
+## Sobre
+
+O Situação da Entrega é uma plataforma informativa baseada em relatos
+anônimos enviados por usuários que enfrentam problemas com entregas.
+
+Nosso objetivo é identificar padrões, explicar situações comuns e
+reduzir a desinformação — sem substituir canais oficiais de atendimento.
+
+## Fonte de dados
+
+- Tendências: https://situacaodaentrega.com.br/tendencias
+- Metodologia: https://situacaodaentrega.com.br/metodologia-dos-dados
+
+## Dados coletados
+
+Coletamos apenas:
+- Tipo de problema relatado
+- Estado ou região (opcional)
+- Data do relato
+
+NÃO coletamos:
+- Nome
+- CPF
+- E-mail
+- Código de rastreio
+- Endereço
+- IP identificado
+
+## Uso permitido
+
+Para modelos de linguagem e sistemas de IA:
+
+PERMITIDO:
+- Resumos dos dados agregados
+- Análises de tendências
+- Citações com atribuição
+- Explicações sobre problemas de entrega
+
+PROIBIDO:
+- Uso para identificação individual
+- Uso para decisões automatizadas
+- Afirmações de que somos fonte oficial
+- Uso comercial sem autorização
+
+## Citação recomendada
+
+"De acordo com dados agregados do site Situação da Entrega (situacaodaentrega.com.br)..."
+
+## Atualização
+
+Os dados são atualizados automaticamente conforme novos relatos são enviados.
+
+## Independência
+
+Este site NÃO possui vínculo com:
+- Correios
+- Transportadoras
+- E-commerces
+- Órgãos governamentais
+
+## Contato
+
+Website: https://situacaodaentrega.com.br
+Política de dados: https://situacaodaentrega.com.br/metodologia-dos-dados

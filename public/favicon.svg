@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <!-- Versão Simplificada para Favicon Pequeno -->
+    <rect width="64" height="64" rx="12" fill="#25D366"/>
+    
+    <!-- Caixa Simplificada -->
+    <path d="M32 14 L14 23 L32 32 L50 23 L32 14Z" fill="#FFFFFF"/>
+    <path d="M14 23 V41 L32 50 V32 L14 23Z" fill="#E1E4E8"/>
+    <path d="M50 23 V41 L32 50 V32 L50 23Z" fill="#D1D5DB"/>
+    
+    <!-- Check Verde -->
+    <circle cx="42" cy="42" r="12" fill="#FFFFFF"/>
+    <path d="M38 42 L41 45 L47 39" fill="none" stroke="#25D366" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

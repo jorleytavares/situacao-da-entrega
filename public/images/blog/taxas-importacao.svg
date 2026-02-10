@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="420" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="420" fill="#FFFBEB"/>
+    <circle cx="600" cy="180" r="100" fill="#FDE68A" opacity="0.3"/>
+    
+    <!-- Documento Boleto -->
+    <rect x="250" y="80" width="300" height="360" fill="#FFFFFF" stroke="#D97706" stroke-width="2" rx="4"/>
+    <line x1="280" y1="120" x2="520" y2="120" stroke="#D97706" stroke-width="4"/>
+    <line x1="280" y1="140" x2="480" y2="140" stroke="#D97706" stroke-width="4"/>
+    <line x1="280" y1="180" x2="520" y2="180" stroke="#E5E7EB" stroke-width="2"/>
+    <line x1="280" y1="200" x2="520" y2="200" stroke="#E5E7EB" stroke-width="2"/>
+    
+    <!-- Moedas -->
+    <circle cx="580" cy="300" r="40" fill="#F59E0B" stroke="#B45309" stroke-width="4"/>
+    <text x="580" y="315" font-family="Arial, sans-serif" font-size="40" fill="#FFF" text-anchor="middle" font-weight="bold">$</text>
+    
+    <circle cx="530" cy="350" r="30" fill="#FCD34D" stroke="#D97706" stroke-width="3"/>
+    <text x="530" y="360" font-family="Arial, sans-serif" font-size="28" fill="#FFF" text-anchor="middle" font-weight="bold">$</text>
+    
+    <!-- Selo de Pago -->
+    <rect x="350" y="270" width="140" height="50" fill="#10B981" rx="4" transform="rotate(-15 420 295)"/>
+    <text x="420" y="305" font-family="Arial, sans-serif" font-size="24" fill="#FFF" text-anchor="middle" font-weight="bold" transform="rotate(-15 420 295)">TAXAS E IMPOSTOS</text>
+</svg>

@@ -4,6 +4,36 @@ description: Regras de Git - Branching, versionamento e commits seguros
 
 # Regras de Git para o Projeto
 
+## ⚠️ REGRA OBRIGATÓRIA: Fluxo Completo Após Toda Alteração
+
+**Após QUALQUER alteração no código, o assistente DEVE informar ao usuário o fluxo completo de deploy, incluindo:**
+
+1. **Commit local** — com mensagem semântica
+2. **Push para o GitHub** — merge develop → main, tag, push
+3. **Comandos SSH no servidor** — exatamente o que rodar no terminal cPanel
+
+**Formato da instrução ao usuário após cada alteração:**
+
+```
+### 📦 Deploy das alterações
+
+**1. Local (já feito):**
+✅ commit: "tipo: descrição"
+✅ push para GitHub
+
+**2. No terminal do cPanel, execute:**
+cd /home/curr6441/repositories/situacaodaentrega.com.br
+git pull origin main
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+# + comandos extras se necessário (migrate, composer install, etc.)
+```
+
+**Esta regra é OBRIGATÓRIA e deve ser seguida em TODAS as conversas.**
+
+---
+
 ## Informações do Projeto
 
 | Campo                | Valor                                                        |

@@ -57,6 +57,60 @@
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/search.css">
 
+    <!-- GEO Tags -->
+    <meta name="geo.region" content="BR">
+    <meta name="geo.placename" content="Brasil">
+    <meta name="geo.position" content="-14.235004;-51.92528">
+    <meta name="ICBM" content="-14.235004, -51.92528">
+
+    <!-- Schema.org Organization & Breadcrumb -->
+    <script type="application/ld+json">
+        @php
+        $orgSchema = [
+            "@context" => "https://schema.org",
+            "@type" => "Organization",
+            "name" => "Situação da Entrega",
+            "url" => url('/'),
+            "logo" => asset('logo.svg'),
+            "sameAs" => [
+                "https://situacaodaentrega.com.br"
+            ],
+            "contactPoint" => [
+                [
+                    "@type" => "ContactPoint",
+                    "contactType" => "customer service",
+                    "email" => "contato@situacaodaentrega.com.br"
+                ]
+            ]
+        ];
+
+        $breadcrumbSchema = [
+            "@context" => "https://schema.org",
+            "@type" => "BreadcrumbList",
+            "itemListElement" => [
+                [
+                    "@type" => "ListItem",
+                    "position" => 1,
+                    "name" => "Home",
+                    "item" => route('home')
+                ]
+            ]
+        ];
+
+        // Adiciona breadcrumb dinâmico se tiver slug
+        if (request() - > routeIs('problema.mostrar')) {
+            $breadcrumbSchema['itemListElement'][] = [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => 'Problemas',
+                'item' => url('/problemas') // ou url fictícia de categoria
+            ];
+        }
+        @endphp {
+            !!json_encode([$orgSchema, $breadcrumbSchema], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!
+        }
+    </script>
+
     @if(isset($scriptsHead))
     @foreach($scriptsHead as $script)
     {!! $script !!}

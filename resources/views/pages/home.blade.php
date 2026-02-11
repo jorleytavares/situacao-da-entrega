@@ -27,7 +27,6 @@
     }
 </script>
 
-<!-- ... restante do conteúdo ... -->
 <h1 class="sr-only">Situação da Entrega - Rastreamento e Soluções para Encomendas</h1>
 
 <section class="bloco destaque" id="bloco-hero" aria-labelledby="hero-title">

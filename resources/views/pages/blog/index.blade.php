@@ -56,11 +56,23 @@
 @endif
 
 <section class="bloco" style="margin-top: 2rem;">
-    <h3 class="bloco-titulo">Tópicos Recentes</h3>
-    <ul class="lista-simples">
-        <li><a href="{{ route('problema.mostrar', 'encomenda-parada') }}">Encomenda Parada</a></li>
-        <li><a href="{{ route('problema.mostrar', 'fiscalizacao') }}">Fiscalização Aduaneira</a></li>
-        <li><a href="{{ route('transportadora.index') }}">Lista de Transportadoras</a></li>
-    </ul>
+    @if(isset($maisLidos) && $maisLidos->count() > 0)
+    <section class="bloco" style="margin-top: 3rem; background: #fdfdfd; border: 1px solid #eee;">
+        <h3 class="bloco-titulo" style="border-bottom: 2px solid #128C7E; padding-bottom: 0.5rem; display: inline-block;">
+            🔥 Mais Lidos
+        </h3>
+        <ol style="list-style: none; counter-reset: counter-posts; padding: 0;">
+            @foreach($maisLidos as $lido)
+            <li style="counter-increment: counter-posts; margin-bottom: 1rem; display: flex; align-items: baseline;">
+                <span style="font-weight: bold; font-size: 1.5rem; color: #128C7E; margin-right: 1rem; min-width: 24px;">#{{ $loop->iteration }}</span>
+                <a href="{{ route('blog.show', $lido->slug) }}" style="text-decoration: none; font-weight: 500; font-size: 1.1rem; color: #333;">
+                    {{ $lido->titulo }}
+                    <span style="display: block; font-size: 0.85rem; color: #666; font-weight: normal;">{{ $lido->views }} visualizações</span>
+                </a>
+            </li>
+            @endforeach
+        </ol>
+    </section>
+    @endif
 </section>
 @endsection

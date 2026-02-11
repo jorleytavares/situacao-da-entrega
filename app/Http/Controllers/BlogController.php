@@ -16,7 +16,14 @@ class BlogController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10);
 
-        return view('pages.blog.index', compact('posts'));
+        // Posts mais lidos (Top 5)
+        $maisLidos = \App\Models\Post::where('publicado', true)
+            ->where('views', '>', 0)
+            ->orderBy('views', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('pages.blog.index', compact('posts', 'maisLidos'));
     }
 
     public function show($slug)

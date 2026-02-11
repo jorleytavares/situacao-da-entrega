@@ -8,6 +8,9 @@
     <meta name="description" content="@yield('description', 'Entenda rapidamente o que está acontecendo com sua entrega.')">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <meta name="revisit-after" content="7 days">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <meta property="og:title" content="@yield('title', 'Situação da Entrega')">
     <meta property="og:description" content="@yield('description', 'Entenda rapidamente o que está acontecendo com sua entrega.')">

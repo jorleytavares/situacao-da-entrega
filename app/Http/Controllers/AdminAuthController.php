@@ -45,8 +45,8 @@ class AdminAuthController extends Controller
         if (str_starts_with($adminSenha, '$2y$')) {
             // Senha hasheada
             $senhaValida = Hash::check($request->senha, $adminSenha);
-        } else {
-            // Senha texto plano (dev/inicial)
+        } elseif (app()->isLocal()) {
+            // Senha texto plano (APENAS LOCAL)
             $senhaValida = $request->senha === $adminSenha;
         }
 

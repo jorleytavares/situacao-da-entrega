@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProblemaSeeder::class,
             TransportadoraSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

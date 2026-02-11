@@ -5,7 +5,7 @@
 @section('og_image', $post->imagem_destaque ? asset($post->imagem_destaque) : asset('logo.svg'))
 
 @section('head')
-<link rel="stylesheet" href="{{ asset('css/post-theme.css') }}?v={{ time() }}">
+<link rel="stylesheet" href="{{ asset('css/post-theme.css') }}?v={{ filemtime(public_path('css/post-theme.css')) }}">
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ $post->titulo }}" />
 <meta property="og:description" content="{{ $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160) }}" />

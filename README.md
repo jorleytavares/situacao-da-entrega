@@ -262,6 +262,7 @@ Formato: **`vMAJOR.MINOR.PATCH`** (SemVer)
 |----------|------------|-----------------------------------------------------|
 | `v1.0.0` | 2026-02-10 | Deploy inicial — aplicação completa em produção     |
 | `v1.0.1` | 2026-02-10 | Fix GA4 duplicado, tracking via admin               |
+| `v1.0.2` | 2026-02-11 | Fix Blog Layout (print match) e rota 500            |
 
 ---
 

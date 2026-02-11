@@ -23,6 +23,12 @@
         <priority>0.5</priority>
     </url>
 
+    <url>
+        <loc>{{ route('calculadora.taxas') }}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
 @foreach($problemas as $problema)
     <url>
         <loc>{{ url('/problema/' . $problema->slug) }}</loc>

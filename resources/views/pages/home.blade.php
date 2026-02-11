@@ -4,28 +4,7 @@
 @section('description', 'Sua compra foi TAXADA na alfândega ou está PARADA em Curitiba? Entenda o rastreio internacional e nacional (Loggi, Jadlog, Azul). Saiba como resolver pendências e prazos. Consulte grátis!')
 
 @section('content')
-<!-- FAQ Schema Automático -->
-<script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [{
-            "@type": "Question",
-            "name": "O que significa encomenda parada?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Geralmente significa que ela está aguardando processamento interno ou triagem. Isso não indica necessariamente um problema grave, apenas uma etapa logística."
-            }
-        }, {
-            "@type": "Question",
-            "name": "Devo me preocupar com atraso?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Atrasos são comuns devido a alto volume ou questões climáticas. A maioria é resolvida nos dias seguintes sem intervenção."
-            }
-        }]
-    }
-</script>
+<!-- Schema removido para debug -->
 
 <h1 class="sr-only">Situação da Entrega - Rastreamento e Soluções para Encomendas</h1>
 

@@ -57,6 +57,9 @@ Route::get('/nao-saiu-para-entrega', [ProblemaController::class, 'mostrar'])
 Route::get('/tendencias', [TendenciaController::class, 'index'])
     ->name('tendencias');
 
+Route::get('/calculadora-taxas', [\App\Http\Controllers\CalculadoraTaxaController::class, 'index'])
+    ->name('calculadora.taxas');
+
 /*
 |--------------------------------------------------------------------------
 | SEO Programático - Páginas Dinâmicas
@@ -162,13 +165,13 @@ Route::middleware('admin.auth')->prefix('admin')->group(function () {
 
     // Admin Blog
     Route::resource('blog', \App\Http\Controllers\AdminBlogController::class)
-            ->names('admin.blog')
-            ->except(['show']);
+        ->names('admin.blog')
+        ->except(['show']);
 
     // Admin Media
     Route::post('media/sync', [\App\Http\Controllers\AdminMediaController::class, 'sync'])
         ->name('admin.media.sync');
-        
+
     Route::resource('media', \App\Http\Controllers\AdminMediaController::class)
         ->names('admin.media')
         ->only(['index', 'store', 'destroy', 'update']);
@@ -176,7 +179,7 @@ Route::middleware('admin.auth')->prefix('admin')->group(function () {
     // Admin Manutenção
     Route::post('/manutencao/limpar-cache', [\App\Http\Controllers\AdminMaintenanceController::class, 'limparCache'])
         ->name('admin.manutencao.limpar_cache');
-        
+
     Route::post('/manutencao/limpar-dados', [\App\Http\Controllers\AdminMaintenanceController::class, 'limparDados'])
         ->name('admin.manutencao.limpar_dados');
-    });
+});

@@ -117,6 +117,7 @@
                     <strong>{{ number_format($totalRelatosGlobal ?? 0, 0, ',', '.') }}</strong> relatos ajudando pessoas ·
                 </span>
                 <a href="{{ route('blog.index') }}" style="font-weight: 500;">Blog & Dicas</a> ·
+                <a href="{{ route('calculadora.taxas') }}" style="font-weight: 500; color: #128C7E;">Calculadora de Taxas</a> ·
                 <a href="{{ route('metodologia') }}">Metodologia</a> ·
                 <a href="{{ route('aviso_legal') }}">Aviso legal</a> ·
                 <a href="{{ route('politica_privacidade') }}">Privacidade</a>

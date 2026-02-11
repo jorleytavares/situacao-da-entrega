@@ -22,6 +22,18 @@ use App\Http\Controllers\TransportadoraController; // Importante
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])
     ->name('sitemap');
 
+// ROTA DE EMERGÊNCIA - REMOVER APÓS USO
+Route::get('/fix-server', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('view:clear');
+        \Illuminate\Support\Facades\Artisan::call('cache:clear');
+        \Illuminate\Support\Facades\Artisan::call('config:clear');
+        return "CACHE LIMPO COM SUCESSO! Tente acessar a home.";
+    } catch (\Exception $e) {
+        return "Erro: " . $e->getMessage();
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | Rotas Públicas

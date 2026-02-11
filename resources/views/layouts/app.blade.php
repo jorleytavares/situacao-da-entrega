@@ -67,6 +67,7 @@
     <meta name="ICBM" content="-14.235004, -51.92528">
 
     <!-- Schema.org Organization & Breadcrumb -->
+    <!-- Schema.org Organization & Breadcrumb -->
     <script type="application/ld+json">
         @php
         $orgSchema = [
@@ -106,7 +107,7 @@
                 '@type' => 'ListItem',
                 'position' => 2,
                 'name' => 'Problemas',
-                'item' => url('/problemas') // ou url fictícia de categoria
+                'item' => url('/problemas')
             ];
         }
         @endphp {

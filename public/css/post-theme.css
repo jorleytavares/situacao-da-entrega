@@ -603,7 +603,14 @@
 
 .floating-cta:hover {
     transform: scale(1.05);
-    background: var(--brand-hover);
+    margin-bottom: 2rem;
+}
+
+.comment-form {
+    background: var(--sl-50);
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--sl-200);
 }
 
 /* ====================================================================

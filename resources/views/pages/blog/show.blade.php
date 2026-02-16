@@ -89,6 +89,33 @@
                 <p>Nossa comunidade de importadores está pronta para ajudar.</p>
                 <a href="#comentarios" class="btn-cta-green">Deixar Comentário</a>
             </div>
+
+            {{-- Seção de Comentários --}}
+            <section id="comentarios" class="comments-section">
+                <h3 class="comments-title">Comentários (0)</h3>
+
+                <form class="comment-form" onsubmit="event.preventDefault(); alert('Funcionalidade de comentários em breve!');">
+                    <div class="form-group">
+                        <textarea placeholder="Escreva sua dúvida ou experiência..." rows="4" class="calc-input" style="width: 100%; resize: vertical;"></textarea>
+                    </div>
+                    <div class="form-row" style="gap: 1rem; margin-top: 1rem;">
+                        <input type="text" placeholder="Seu Nome" class="calc-input" style="flex: 1;">
+                        <input type="email" placeholder="Seu E-mail (não será publicado)" class="calc-input" style="flex: 1;">
+                    </div>
+                    <button type="submit" class="btn-cta-green" style="margin-top: 1rem; width: auto; padding-left: 2rem; padding-right: 2rem;">
+                        Publicar Comentário
+                    </button>
+                    <p style="font-size: 0.8rem; color: var(--text-meta); margin-top: 1rem;">
+                        * Seus dados estão seguros. Comentários são moderados.
+                    </p>
+                </form>
+
+                <div class="comments-list">
+                    <div style="text-align: center; padding: 2rem; color: var(--text-meta); background: var(--bg-page); border-radius: var(--radius); margin-top: 2rem;">
+                        Seja o primeiro a comentar!
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 

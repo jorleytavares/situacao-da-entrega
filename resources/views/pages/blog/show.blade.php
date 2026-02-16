@@ -5,10 +5,10 @@
 @section('og_image', $post->imagem_destaque ? asset($post->imagem_destaque) : asset('logo.svg'))
 
 @section('head')
-<!-- CSS do Tema do Post (Local e Versionado) -->
+<!-- CSS Local do Post (Versionado) -->
 <link rel="stylesheet" href="{{ asset('css/post-theme.css') }}?v={{ filemtime(public_path('css/post-theme.css')) }}">
 
-<!-- Meta Tags SEO -->
+<!-- Meta SEO -->
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ $post->titulo }}" />
 <meta property="og:description" content="{{ $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160) }}" />
@@ -20,129 +20,116 @@
 @section('content')
 <div class="blog-layout-wrapper">
 
-    <!-- Coluna Principal -->
+    {{-- ======== COLUNA PRINCIPAL ======== --}}
     <div class="post-main-column">
-        <!-- Header -->
-        <header class="post-header-simple">
-            <nav class="breadcrumbs">
-                <a href="{{ route('home') }}">Home</a>
-                <span>/</span>
-                <a href="{{ route('blog.index') }}">Blog</a>
-                <span>/</span>
-                <span>Artigo</span>
-            </nav>
 
-            <h1 class="post-title-main">{{ $post->titulo }}</h1>
+        {{-- Breadcrumbs --}}
+        <nav class="breadcrumbs">
+            <a href="{{ route('home') }}">Home</a>
+            <span>›</span>
+            <a href="{{ route('blog.index') }}">Blog</a>
+            <span>›</span>
+            <span>Artigo</span>
+        </nav>
 
-            @if($post->subtitulo)
-            <p class="post-subtitle-main">{{ $post->subtitulo }}</p>
-            @endif
-        </header>
+        {{-- Título --}}
+        <h1 class="post-title-main">{{ $post->titulo }}</h1>
 
-        <!-- Card de Conteúdo -->
-        <main class="post-content-card">
-            <!-- Meta Header (Autor/Data) -->
+        @if($post->subtitulo)
+        <p class="post-subtitle-main">{{ $post->subtitulo }}</p>
+        @endif
+
+        {{-- Card de Conteúdo --}}
+        <div class="post-content-card">
+
+            {{-- Meta: Autor + Data --}}
             <div class="post-meta-header">
-                <div class="author-avatar-sm">
-                    {{ substr($post->autor_nome, 0, 1) }}
-                </div>
+                <div class="author-avatar-sm">{{ substr($post->autor_nome, 0, 1) }}</div>
                 <div class="author-details">
                     <span class="author-name">{{ $post->autor_nome }}</span>
-                    <span class="post-date">
-                        Atualizado em {{ $post->updated_at->format('d/m/Y') }} ·
-                        6 min de leitura
-                    </span>
+                    <span class="post-date">Atualizado em {{ $post->updated_at->format('d/m/Y') }} · 6 min de leitura</span>
                 </div>
             </div>
 
+            {{-- Imagem Destaque --}}
             @if($post->imagem_destaque)
-            <figure style="margin-bottom: 2.5rem; border-radius: 0.75rem; overflow: hidden; box-shadow: var(--shadow-sm);">
+            <figure class="post-featured-figure">
                 <img src="{{ asset($post->imagem_destaque) }}"
                     alt="{{ $post->imagem_alt ?? $post->titulo }}"
-                    style="width: 100%; height: auto; display: block;"
                     width="800" height="450">
                 @if($post->imagem_legenda)
-                <figcaption style="text-align: center; color: var(--slate-500); font-size: 0.85rem; padding: 0.75rem; background: var(--slate-50);">
-                    {{ $post->imagem_legenda }}
-                </figcaption>
+                <figcaption class="post-featured-caption">{{ $post->imagem_legenda }}</figcaption>
                 @endif
             </figure>
             @endif
 
-            <!-- Box SGE (Resumo) -->
+            {{-- Box: Resumo do Especialista --}}
             @if($post->sge_summary)
             <div class="cta-box-blue">
                 <div class="cta-header-blue">
-                    <!-- Ícone Raio -->
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                     </svg>
                     Resumo do Especialista
                 </div>
-                <div class="content-body" style="font-size: 1rem;">
+                <div class="content-body">
                     {!! Str::markdown($post->sge_summary) !!}
                 </div>
             </div>
             @endif
 
-            <!-- Corpo do Texto -->
+            {{-- Corpo do Texto --}}
             <article class="content-body" id="post-body">
                 {!! $post->conteudo_formatado !!}
             </article>
 
-            <!-- CTA Final -->
+            {{-- CTA Final --}}
             <div class="cta-box-green">
-                <h3 style="color: var(--emerald-800); font-size: 1.5rem; margin-bottom: 0.5rem; font-weight: 700;">Ainda com dúvidas?</h3>
-                <p style="color: var(--emerald-700);">Nossa comunidade de importadores está pronta para ajudar.</p>
-                <a href="#comentarios" class="btn-cta-green">
-                    Ver Comentários
-                </a>
+                <h3>Ficou com alguma dúvida?</h3>
+                <p>Nossa comunidade de importadores está pronta para ajudar.</p>
+                <a href="#comentarios" class="btn-cta-green">Deixar Comentário</a>
             </div>
-        </main>
+        </div>
     </div>
 
-    <!-- Sidebar Sticky -->
+    {{-- ======== SIDEBAR ======== --}}
     <aside class="sidebar-sticky">
 
-        <!-- Widget: Índice (TOC) -->
-        <div class="sidebar-widget toc-widget" id="widget-toc" style="display: none;">
+        {{-- Widget: Índice do Artigo (TOC) --}}
+        <div class="sidebar-widget toc-widget" id="widget-toc" style="display:none">
             <span class="widget-title">Neste artigo</span>
-            <ul class="toc-list" id="toc-list">
-                <!-- Preenchido via JS -->
-            </ul>
+            <ul class="toc-list" id="toc-list"></ul>
         </div>
 
-        <!-- Widget: Calculadora -->
+        {{-- Widget: Calculadora --}}
         <div class="sidebar-widget">
             <span class="widget-title">Calculadora de Taxas</span>
-            <p style="font-size: 0.9rem; color: var(--slate-500); margin-bottom: 1rem;">
-                Simule quanto vai pagar de imposto antes de comprar.
-            </p>
+            <span class="calc-label">Simule quanto vai pagar de imposto.</span>
             <form action="{{ route('calculadora.taxas') }}" method="GET">
-                <input type="number" name="valor" class="calc-input" placeholder="Valor do produto (USD)">
-                <button type="submit" class="btn-calc-sidebar">
-                    Simular Custo ›
-                </button>
+                <input type="number" name="valor" class="calc-input" placeholder="Valor do item (R$)">
+                <button type="submit" class="btn-calc-sidebar">Simular custo ›</button>
             </form>
         </div>
 
-        <!-- Widget: Mais Lidos -->
+        {{-- Widget: Leia Também --}}
         @if(isset($maisLidos) && $maisLidos->count() > 0)
         <div class="sidebar-widget">
-            <span class="widget-title">Leia Também</span>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                @foreach($maisLidos->take(3) as $postLido)
+            <span class="widget-title">Leia também</span>
+            <div class="read-more-list">
+                @foreach($maisLidos->take(4) as $postLido)
                 <a href="{{ route('blog.show', $postLido->slug) }}" class="read-more-item">
-                    <div class="read-more-thumb">
+                    <div class="read-more-icon">
                         @if($postLido->imagem_destaque)
-                        <img src="{{ asset($postLido->imagem_destaque) }}" alt="{{ $postLido->titulo }}">
+                        <img src="{{ asset($postLido->imagem_destaque) }}" alt="">
                         @else
-                        <div style="width:100%; height:100%; background: var(--color-brand); opacity: 0.1;"></div>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V9a2 2 0 012-2h2a2 2 0 012 2v9a2 2 0 01-2 2h-2z"></path>
+                        </svg>
                         @endif
                     </div>
                     <div class="read-more-info">
                         <div class="read-more-title">{{ $postLido->titulo }}</div>
-                        <span class="read-more-author">Por {{ Str::words($postLido->autor_nome, 1, '') }}</span>
+                        <span class="read-more-author">Por {{ $postLido->autor_nome }}</span>
                     </div>
                 </a>
                 @endforeach
@@ -151,52 +138,47 @@
         @endif
 
     </aside>
-
 </div>
 
-<!-- Botão Flutuante (Mobile/Desktop) -->
+{{-- Botão Flutuante --}}
 <a href="{{ route('calculadora.taxas') }}" class="floating-cta" title="Simular Taxas">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
         <line x1="8" y1="21" x2="16" y2="21"></line>
         <line x1="12" y1="17" x2="12" y2="21"></line>
     </svg>
-    <span style="font-size: 0.9rem;">Simular Taxas</span>
+    <span>Simular Taxas</span>
 </a>
 
+{{-- Script: Gerador de TOC --}}
 <script>
-    // Gerador de TOC (Table of Contents)
     document.addEventListener('DOMContentLoaded', function() {
-        const content = document.getElementById('post-body');
-        const tocList = document.getElementById('toc-list');
-        const tocWidget = document.getElementById('widget-toc');
+        var body = document.getElementById('post-body');
+        var list = document.getElementById('toc-list');
+        var widget = document.getElementById('widget-toc');
+        if (!body || !list) return;
 
-        if (!content || !tocList) return;
+        var headings = body.querySelectorAll('h2, h3');
+        if (headings.length === 0) return;
 
-        const headings = content.querySelectorAll('h2, h3');
+        widget.style.display = 'block';
+        for (var i = 0; i < headings.length; i++) {
+            var h = headings[i];
+            var id = 'sec-' + i;
+            h.id = id;
 
-        if (headings.length > 0) {
-            tocWidget.style.display = 'block'; // Mostra widget apenas se houver títulos
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + id;
+            a.textContent = h.textContent;
 
-            headings.forEach((heading, index) => {
-                const id = 'heading-' + index;
-                heading.id = id;
+            if (h.tagName === 'H3') {
+                a.style.paddingLeft = '1.5rem';
+                a.style.fontSize = '0.85rem';
+            }
 
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = '#' + id;
-                a.textContent = heading.innerText;
-
-                // Indentação visual para subtítulos (h3)
-                if (heading.tagName === 'H3') {
-                    a.style.paddingLeft = '1.25rem';
-                    a.style.fontSize = '0.9rem';
-                    a.style.color = 'var(--text-meta)';
-                }
-
-                li.appendChild(a);
-                tocList.appendChild(li);
-            });
+            li.appendChild(a);
+            list.appendChild(li);
         }
     });
 </script>

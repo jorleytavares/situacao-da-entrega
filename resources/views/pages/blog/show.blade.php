@@ -98,7 +98,7 @@
 
             {{-- Seção de Comentários --}}
             <section id="comentarios" class="comments-section">
-                <h3 class="comments-title">Comentários (0)</h3>
+                <h3 class="comments-title">Comentários ({{ $comentarios->count() }})</h3>
 
                 <div id="comment-success" style="display: none; background: var(--em-50); color: var(--em-800); padding: 2rem; border-radius: var(--radius); border: 1px solid var(--em-100); text-align: center;">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 1rem; color: var(--brand);">
@@ -172,9 +172,24 @@
                 </script>
 
                 <div class="comments-list">
+                    @forelse($comentarios as $comentario)
+                    <div class="comment-item" style="background: var(--bg-page); border-radius: var(--radius); padding: 1.5rem; margin-top: 1rem; border: 1px solid var(--sl-200);">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--brand); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem;">
+                                {{ strtoupper(substr($comentario->nome, 0, 1)) }}
+                            </div>
+                            <div>
+                                <strong style="color: var(--text-h); font-size: 0.95rem;">{{ $comentario->nome }}</strong>
+                                <span style="display: block; font-size: 0.8rem; color: var(--text-meta);">{{ $comentario->created_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-p); line-height: 1.6; margin: 0;">{{ $comentario->mensagem }}</p>
+                    </div>
+                    @empty
                     <div style="text-align: center; padding: 2rem; color: var(--text-meta); background: var(--bg-page); border-radius: var(--radius); margin-top: 2rem;">
                         Seja o primeiro a comentar!
                     </div>
+                    @endforelse
                 </div>
             </section>
         </div>

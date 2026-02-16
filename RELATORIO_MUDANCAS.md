@@ -1,5 +1,34 @@
 # Relatório de Mudanças e Entrega
 
+## 📅 Data: 16/02/2026
+
+### 💬 Sistema de Comentários (Novo Módulo)
+
+- **Backend Completo**:
+  - **Tabela**: `comentarios` (campos: post_id, nome, email, mensagem, status, timestamps).
+  - **Status de Moderação**: Suporte a estados `pendente` (padrão), `aprovado` e `rejeitado`.
+  - **Controllers**: `ComentarioController` (Frontend) e `AdminComentarioController` (Backend).
+- **Frontend (Blog Post)**:
+  - **Seção Interativa**: Formulário de envio com validação e feedback visual de "Aguardando Moderação".
+  - **Listagem**: Exibição apenas de comentários com status `aprovado`.
+  - **Scroll Suave**: Link de chamada para ação com rolagem suave até a seção.
+- **Painel Administrativo**:
+  - **Menu Lateral**: Novo item "💬 Comentários".
+  - **Moderação**: Interface para listar, aprovar, rejeitar e excluir comentários.
+  - **Layout**: Integração total com o design system do painel (sidebar + header).
+
+### 🖋️ Formatação Inteligente de Conteúdo
+
+- **Auto-Formatter (`Post.php`)**:
+  - **Detecção de Texto Plano**: Identifica conteúdo sem tags HTML e aplica formatação automática.
+  - **Subtítulos Dinâmicos**: Transforma linhas curtas e isoladas em tags `<h2>` automaticamente.
+  - **Parágrafos Legíveis**: Conversão inteligente de quebras de linha (`nl2br`) e padronização de espaçamento.
+- **Design Editorial (`post-theme.css`)**:
+  - **Destaque Visual**: Novos estilos para `<h2>` com borda lateral na cor da marca (`--brand`).
+  - **Espaçamento**: Aumento do entreli e margens para melhorar a leiturabilidade em telas grandes.
+
+---
+
 ## 📅 Data: 15/02/2026
 
 ### 🔒 Segurança e Autenticação

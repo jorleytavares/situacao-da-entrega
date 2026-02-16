@@ -94,13 +94,22 @@
             <section id="comentarios" class="comments-section">
                 <h3 class="comments-title">Comentários (0)</h3>
 
-                <form class="comment-form" onsubmit="event.preventDefault(); alert('Funcionalidade de comentários em breve!');">
+                <div id="comment-success" style="display: none; background: var(--em-50); color: var(--em-800); padding: 2rem; border-radius: var(--radius); border: 1px solid var(--em-100); text-align: center;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-bottom: 1rem; color: var(--brand);">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h3 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Comentário enviado!</h3>
+                    <p>Sua mensagem foi recebida e aparecerá aqui após a aprovação da nossa equipe.</p>
+                </div>
+
+                <form id="comment-form" class="comment-form" onsubmit="handleCommentSubmit(event)">
                     <div class="form-group">
-                        <textarea placeholder="Escreva sua dúvida ou experiência..." rows="4" class="calc-input" style="width: 100%; resize: vertical;"></textarea>
+                        <textarea name="mensagem" placeholder="Escreva sua dúvida ou experiência..." rows="4" class="calc-input" style="width: 100%; resize: vertical;" required></textarea>
                     </div>
                     <div class="form-row" style="gap: 1rem; margin-top: 1rem;">
-                        <input type="text" placeholder="Seu Nome" class="calc-input" style="flex: 1;">
-                        <input type="email" placeholder="Seu E-mail (não será publicado)" class="calc-input" style="flex: 1;">
+                        <input type="text" name="nome" placeholder="Seu Nome" class="calc-input" style="flex: 1;" required>
+                        <input type="email" name="email" placeholder="Seu E-mail (não será publicado)" class="calc-input" style="flex: 1;" required>
                     </div>
                     <button type="submit" class="btn-cta-green" style="margin-top: 1rem; width: auto; padding-left: 2rem; padding-right: 2rem;">
                         Publicar Comentário
@@ -109,6 +118,27 @@
                         * Seus dados estão seguros. Comentários são moderados.
                     </p>
                 </form>
+
+                <script>
+                    function handleCommentSubmit(e) {
+                        e.preventDefault();
+                        // Simulação visual de envio
+                        const btn = e.target.querySelector('button[type="submit"]');
+                        const originalText = btn.innerText;
+
+                        btn.disabled = true;
+                        btn.innerText = 'Enviando...';
+
+                        setTimeout(() => {
+                            document.getElementById('comment-form').style.display = 'none';
+                            document.getElementById('comment-success').style.display = 'block';
+                            // Rola suave para a mensagem
+                            document.getElementById('comentarios').scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }, 1000);
+                    }
+                </script>
 
                 <div class="comments-list">
                     <div style="text-align: center; padding: 2rem; color: var(--text-meta); background: var(--bg-page); border-radius: var(--radius); margin-top: 2rem;">

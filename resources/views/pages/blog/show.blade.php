@@ -31,7 +31,9 @@
 @endif
 
 <script type="application/ld+json">
-    {!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
+    {
+        !!json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!
+    }
 </script>
 @endsection
 
@@ -42,97 +44,103 @@
             <header class="post-header">
                 <!-- Breadcrumbs -->
                 <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <a href="{{ route('home') }}">Home</a>
+                    <span>/</span>
                     <a href="{{ route('blog.index') }}">Blog</a>
-                    <span>›</span>
-                    <a href="{{ route('blog.index') }}">Tutoriais</a>
+                    <span>/</span>
+                    <span>Tutoriais</span>
                 </nav>
 
                 <h1 class="post-title">{{ $post->titulo }}</h1>
-                
+
                 @if($post->subtitulo)
                 <p class="post-subtitle">{{ $post->subtitulo }}</p>
                 @endif
 
                 <div class="post-meta-info">
                     <span class="meta-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        Atualizado em {{ $post->updated_at->format('d \d\e F \d\e Y') }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        {{ $post->published_at->format('d \d\e F, Y') }}
                     </span>
                     <span class="meta-dot">·</span>
-                    <span class="meta-item">6 Min de Leitura</span>
+                    <span class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        6 min de leitura
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">
+                        Por {{ $post->autor_nome }}
+                    </span>
                 </div>
+            </header>
 
-                @if($post->imagem_destaque)
-                <figure class="post-featured-image">
-                    <img src="{{ asset($post->imagem_destaque) }}" 
-                         alt="{{ $post->imagem_alt ?? $post->titulo }}" 
-                         title="{{ $post->imagem_title ?? $post->titulo }}"
-                         width="720" height="405" style="width: 100%; height: auto; aspect-ratio: 16/9;">
-                    
-                    @if($post->imagem_legenda)
-                    <figcaption>{{ $post->imagem_legenda }}</figcaption>
-                    @endif
+            @if($post->imagem_destaque)
+            <div class="post-featured-wrapper">
+                <img src="{{ asset($post->imagem_destaque) }}"
+                    class="post-featured-image"
+                    alt="{{ $post->imagem_alt ?? $post->titulo }}"
+                    title="{{ $post->imagem_title ?? $post->titulo }}"
+                    width="800" height="450">
 
-                    @if($post->imagem_descricao)
-                    <div class="sr-only" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">
-                        {{ $post->imagem_descricao }}
-                    </div>
-                    @endif
-                </figure>
+                @if($post->imagem_legenda)
+                <div class="post-featured-caption">
+                    {{ $post->imagem_legenda }}
+                </div>
                 @endif
+            </div>
+            @endif
 
+            <div class="conteudo-post-wrapper">
                 @if($post->sge_summary)
                 <div class="entity-box">
                     <div class="entity-header">
-                        Entidade: Status Rastreamento Correios
+                        Resumo Rápido
                     </div>
                     <div class="entity-content">
                         {!! Str::markdown($post->sge_summary) !!}
                     </div>
                 </div>
                 @endif
-            </header>
 
-            <div class="conteudo-post">
-                {!! $post->conteudo_formatado !!}
-            </div>
+                <div class="conteudo-post">
+                    {!! $post->conteudo_formatado !!}
+                </div>
 
-            <div class="comments-section">
-                <h3>Ficou com alguma dúvida? Deixe seu comentário:</h3>
-                <a href="#comentarios" class="btn-comment">Enviar Comentário</a>
-            </div>
+                <div class="comments-cta">
+                    <h3>Ficou com alguma dúvida sobre sua entrega?</h3>
+                    <p style="margin-bottom: 2rem; color: var(--text-secondary);">Nossos especialistas respondem a todos os comentários da comunidade.</p>
+                    <a href="#comentarios" class="btn-primary">Deixar uma Pergunta</a>
+                </div>
 
-            <footer class="post-footer">
-                <div class="author-card">
-                    <div class="author-avatar">
-                        {{ substr($post->autor_nome, 0, 1) }}
-                    </div>
-                    <div class="author-info">
-                        <strong>Escrito por {{ $post->autor_nome }}</strong>
-                        <span>Especialistas em Logística</span>
-                    </div>
-                    <div class="author-social">
-                        <!-- Social Icons Placeholder -->
+                <div class="post-footer-section">
+                    <div class="author-card">
+                        <div class="author-avatar">
+                            {{ substr($post->autor_nome, 0, 1) }}
+                        </div>
+                        <div class="author-info">
+                            <strong>{{ $post->autor_nome }}</strong>
+                            <span>Especialista em Logística e Importação</span>
+                        </div>
                     </div>
                 </div>
-            </footer>
-        </article>
-
-        <div class="read-more-section">
-            <h3>Continue Lendo</h3>
-            <div class="read-more-links">
-                <a href="{{ route('blog.index') }}" class="btn-secondary">Ver todos os artigos</a>
-                <a href="{{ route('home') }}" class="btn-text">Voltar para a Home</a>
             </div>
-        </div>
+        </article>
     </div>
 
     <aside class="blog-sidebar">
         <!-- Widget Calculadora -->
         <div class="sidebar-widget widget-calculadora">
-            <h3>Calculadora de Taxas</h3>
-            <p>Vai importar? Simule agora quanto você vai pagar de impostos.</p>
-            <a href="{{ route('calculadora.taxas') }}" class="btn-calc">
+            <h3>Calculadora de Importação</h3>
+            <p>Descubra exatamente quanto vai pagar de taxas antes do produto chegar.</p>
+            <a href="{{ route('calculadora.taxas') }}" class="btn-white">
                 Simular Agora
             </a>
         </div>
@@ -140,17 +148,14 @@
         <!-- Widget Mais Lidos -->
         @if(isset($maisLidos) && $maisLidos->count() > 0)
         <div class="sidebar-widget widget-mais-lidos">
-            <h3>Mais Lidos</h3>
-            <ul>
+            <h3 class="widget-title">Mais Populares</h3>
+            <ul class="mais-lidos-list">
                 @foreach($maisLidos as $index => $postLido)
-                <li>
-                    <span class="rank">#{{ $index + 1 }}</span>
-                    <div>
-                        <a href="{{ route('blog.show', $postLido->slug) }}">
-                            {{ $postLido->titulo }}
-                        </a>
-                        <span class="views">{{ $postLido->views }} visualizações</span>
-                    </div>
+                <li class="mais-lidos-item">
+                    <span class="mais-lidos-rank">{{ $index + 1 }}</span>
+                    <a href="{{ route('blog.show', $postLido->slug) }}" class="mais-lidos-link">
+                        {{ $postLido->titulo }}
+                    </a>
                 </li>
                 @endforeach
             </ul>

@@ -22,6 +22,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.comentarios.index') }}" class="{{ request()->routeIs('admin.comentarios.*') ? 'active' : '' }}">
+                    💬 Comentários
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('admin.media.index') }}" class="{{ request()->routeIs('admin.media.*') ? 'active' : '' }}">
                     🖼️ Mídia
                 </a>

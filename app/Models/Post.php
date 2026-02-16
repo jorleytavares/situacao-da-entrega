@@ -83,4 +83,9 @@ class Post extends Model
 
         return $conteudo;
     }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }

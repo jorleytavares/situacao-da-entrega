@@ -43,10 +43,13 @@ class BlogController extends Controller
             ->take(5)
             ->get();
 
+        // Comentarios aprovados
+        $comentarios = $post->comentarios()->where('status', 'aprovado')->latest()->get();
+
         // Dados Estruturados (SGE/Schema)
         $schema = $this->generateSchema($post);
 
-        return view('pages.blog.show', compact('post', 'schema', 'maisLidos'));
+        return view('pages.blog.show', compact('post', 'schema', 'maisLidos', 'comentarios'));
     }
 
     private function generateSchema($post)

@@ -188,6 +188,11 @@ Route::middleware('admin.auth')->prefix('admin')->group(function () {
         ->names('admin.media')
         ->only(['index', 'store', 'destroy', 'update']);
 
+    // Admin Comentários
+    Route::resource('comentarios', \App\Http\Controllers\AdminComentarioController::class)
+        ->names('admin.comentarios')
+        ->only(['index', 'update', 'destroy']);
+
     // Admin Manutenção
     Route::post('/manutencao/limpar-cache', [\App\Http\Controllers\AdminMaintenanceController::class, 'limparCache'])
         ->name('admin.manutencao.limpar_cache');
@@ -195,3 +200,7 @@ Route::middleware('admin.auth')->prefix('admin')->group(function () {
     Route::post('/manutencao/limpar-dados', [\App\Http\Controllers\AdminMaintenanceController::class, 'limparDados'])
         ->name('admin.manutencao.limpar_dados');
 });
+
+// Comentários (Frontend)
+Route::post('/blog/{slug}/comentar', [\App\Http\Controllers\ComentarioController::class, 'store'])
+    ->name('comentarios.store');

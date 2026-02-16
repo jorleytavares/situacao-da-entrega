@@ -75,6 +75,8 @@
     {!! $script !!}
     @endforeach
     @endif
+
+    @yield('head')
 </head>
 
 <body>

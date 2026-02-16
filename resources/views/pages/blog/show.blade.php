@@ -128,21 +128,46 @@
                 <script>
                     function handleCommentSubmit(e) {
                         e.preventDefault();
-                        // Simulação visual de envio
-                        const btn = e.target.querySelector('button[type="submit"]');
+                        const form = e.target;
+                        const btn = form.querySelector('button[type="submit"]');
                         const originalText = btn.innerText;
 
                         btn.disabled = true;
                         btn.innerText = 'Enviando...';
 
-                        setTimeout(() => {
-                            document.getElementById('comment-form').style.display = 'none';
-                            document.getElementById('comment-success').style.display = 'block';
-                            // Rola suave para a mensagem
-                            document.getElementById('comentarios').scrollIntoView({
-                                behavior: 'smooth'
+                        const data = {
+                            nome: form.querySelector('[name="nome"]').value,
+                            email: form.querySelector('[name="email"]').value,
+                            mensagem: form.querySelector('[name="mensagem"]').value,
+                            _token: '{{ csrf_token() }}'
+                        };
+
+                        fetch('{{ route("comentarios.store", $post->slug) }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            })
+                            .then(response => {
+                                if (!response.ok) throw new Error('Erro no servidor');
+                                return response.json();
+                            })
+                            .then(result => {
+                                document.getElementById('comment-form').style.display = 'none';
+                                document.getElementById('comment-success').style.display = 'block';
+                                document.getElementById('comentarios').scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            })
+                            .catch(error => {
+                                btn.disabled = false;
+                                btn.innerText = originalText;
+                                alert('Erro ao enviar comentário. Tente novamente.');
+                                console.error('Erro:', error);
                             });
-                        }, 1000);
                     }
                 </script>
 

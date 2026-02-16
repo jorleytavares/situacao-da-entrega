@@ -7,10 +7,11 @@
 - **Backend Completo**:
   - **Tabela**: `comentarios` (campos: post_id, nome, email, mensagem, status, timestamps).
   - **Status de Moderação**: Suporte a estados `pendente` (padrão), `aprovado` e `rejeitado`.
-  - **Controllers**: `ComentarioController` (Frontend) e `AdminComentarioController` (Backend).
+  - **Controllers**: `ComentarioController` (Frontend AJAX) e `AdminComentarioController` (Backend).
 - **Frontend (Blog Post)**:
-  - **Seção Interativa**: Formulário de envio com validação e feedback visual de "Aguardando Moderação".
-  - **Listagem**: Exibição apenas de comentários com status `aprovado`.
+  - **Envio Real via AJAX**: Formulário envia POST real para `/blog/{slug}/comentar` com CSRF token.
+  - **Listagem Dinâmica**: Exibição de comentários aprovados com avatar, nome, data relativa e mensagem.
+  - **Contador Dinâmico**: Título `Comentários (N)` reflete a contagem real de comentários aprovados.
   - **Scroll Suave**: Link de chamada para ação com rolagem suave até a seção.
 - **Painel Administrativo**:
   - **Menu Lateral**: Novo item "💬 Comentários".
@@ -26,6 +27,33 @@
 - **Design Editorial (`post-theme.css`)**:
   - **Destaque Visual**: Novos estilos para `<h2>` com borda lateral na cor da marca (`--brand`).
   - **Espaçamento**: Aumento do entreli e margens para melhorar a leiturabilidade em telas grandes.
+
+### 🎨 Layout do Blog (Refatoração)
+
+- **Header Full-Width**: Título e subtítulo movidos para fora do grid de 2 colunas, ocupando largura total.
+- **Novo Wrapper**: `.blog-header-wrapper` + `.blog-header-content` centralizam o header com `max-width: 900px`.
+- **Título Ampliado**: Fonte de 2.5rem → 3rem com `letter-spacing: -0.03em` para impacto visual.
+
+### 📦 Ferramenta: Gerador de Declaração de Conteúdo (Novo)
+
+- **URL**: `/ferramentas/declaracao-conteudo`
+- **Formulário Inteligente**: Busca automática de endereço via CEP (API ViaCEP).
+- **Tabela Dinâmica**: Adicionar múltiplos itens com cálculo automático de total.
+- **PDF via Print**: Layout oficial dos Correios gerado por `window.print()` sem dependência externa.
+- **SEO Magnet**: Ferramenta útil que gera backlinks naturais para o domínio.
+
+### ❓ FAQ Schema Generator (Novo)
+
+- **Gerador Visual**: Card no editor de posts (criar e editar) para adicionar Perguntas e Respostas.
+- **JSON-LD Automático**: Botão "⚡ Gerar JSON-LD" preenche o campo `meta_schema` com `FAQPage` Schema.
+- **Carregamento Inteligente**: Se o post já tem FAQ Schema salvo, os campos são populados automaticamente ao abrir.
+- **Resultado**: Artigos aparecem no Google com dropdown de perguntas (Rich Results).
+
+### 🐛 Bugs Corrigidos
+
+- **Comentários não chegavam ao backend**: JavaScript do formulário era apenas simulação visual (`setTimeout`). Corrigido para `fetch()` real.
+- **Comentários aprovados não apareciam no post**: Lista era hardcoded com "Seja o primeiro a comentar!". Corrigido com `@forelse` dinâmico.
+- **Cabeçalho não acompanhava largura do texto**: Título estava dentro do grid de 2 colunas. Movido para fora com wrapper próprio.
 
 ---
 

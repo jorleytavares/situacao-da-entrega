@@ -232,6 +232,11 @@
     color: var(--sl-700);
 }
 
+/* Espaçamento Vertical Robusto (Owl Selector) */
+.content-body>*+* {
+    margin-top: 2rem;
+}
+
 .content-body h2 {
     font-size: 1.625rem;
     font-weight: 700;

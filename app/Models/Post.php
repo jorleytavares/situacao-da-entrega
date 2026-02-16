@@ -63,6 +63,11 @@ class Post extends Model
             $conteudo = preg_replace($pattern, '<a href="' . $url . '" title="Saiba mais sobre ' . $keyword . '" style="color: var(--cor-primaria); text-decoration: underline;">' . $keyword . '</a>', $conteudo, 1);
         }
 
+        // Se não houver tags HTML de bloco comuns, aplica nl2br para garantir quebras de linha
+        if (!preg_match('/<(p|div|ul|ol|h[1-6]|blockquote|table)/i', $conteudo)) {
+            $conteudo = nl2br($conteudo);
+        }
+
         return $conteudo;
     }
 }

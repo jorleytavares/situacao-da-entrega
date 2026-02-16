@@ -18,11 +18,10 @@
 @endsection
 
 @section('content')
-<div class="blog-layout-wrapper">
 
-    {{-- ======== COLUNA PRINCIPAL ======== --}}
-    <div class="post-main-column">
-
+{{-- ======== HEADER LARGURA TOTAL ======== --}}
+<div class="blog-header-wrapper">
+    <div class="blog-header-content">
         {{-- Breadcrumbs --}}
         <nav class="breadcrumbs">
             <a href="{{ route('home') }}">Home</a>
@@ -38,6 +37,13 @@
         @if($post->subtitulo)
         <p class="post-subtitle-main">{{ $post->subtitulo }}</p>
         @endif
+    </div>
+</div>
+
+<div class="blog-layout-wrapper">
+
+    {{-- ======== COLUNA PRINCIPAL ======== --}}
+    <div class="post-main-column">
 
         {{-- Card de Conteúdo --}}
         <div class="post-content-card">

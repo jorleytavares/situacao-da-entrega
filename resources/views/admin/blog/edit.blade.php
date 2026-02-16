@@ -30,7 +30,7 @@
         <form action="{{ route('admin.blog.update', $post->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            
+
             <div class="admin-post-grid">
                 <!-- Main Content Column -->
                 <div class="admin-post-main">
@@ -80,6 +80,30 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- FAQ Schema Generator --}}
+                    <div class="card" style="border-top: 4px solid #10b981;">
+                        <div class="card-header">
+                            <h2>❓ FAQ Schema (Google Rich Results)</h2>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 0.85rem; color: var(--admin-text-muted); margin-bottom: 1rem;">
+                                Adicione perguntas frequentes para gerar o FAQPage Schema automaticamente. Isso faz seu artigo aparecer com dropdown de perguntas no Google.
+                            </p>
+
+                            <div id="faq-container">
+                                {{-- JS popula aqui --}}
+                            </div>
+
+                            <button type="button" onclick="addFaqItem()" style="width: 100%; padding: 0.75rem; background: transparent; border: 2px dashed #10b981; color: #10b981; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 0.5rem;">
+                                + Adicionar Pergunta
+                            </button>
+
+                            <button type="button" onclick="gerarFaqSchema()" style="width: 100%; padding: 0.75rem; background: #10b981; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 1rem;">
+                                ⚡ Gerar JSON-LD da FAQ
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Sidebar Column -->
@@ -125,7 +149,7 @@
 
                             <div class="form-group">
                                 <label for="imagem_destaque">Imagem de Destaque</label>
-                                
+
                                 <div id="image-preview-container" style="{{ $post->imagem_destaque ? 'display: block;' : 'display: none;' }} margin: 0.5rem 0 1rem;">
                                     <img id="image-preview" src="{{ $post->imagem_destaque ? asset($post->imagem_destaque) : '' }}" alt="Preview" style="width: 100%; border-radius: 6px; border: 1px solid var(--admin-border); object-fit: cover;">
                                     <small style="display: block; margin-top: 0.5rem; color: var(--admin-text-muted);">
@@ -184,23 +208,106 @@
 
         imageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
-            
+
             if (file) {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     previewImage.src = e.target.result;
                     previewContainer.style.display = 'block';
                 }
-                
+
                 reader.readAsDataURL(file);
             }
-            // Note: If user cancels or selects nothing, we keep the old preview if it existed (edit mode) or clear it?
-            // Standard behavior: input file clear might not be detectable easily on 'change' if cancelled in some browsers, 
-            // but if file list is empty, we should revert or clear.
-            // For simplicity, if no file, we do nothing or could revert to original src if tracked.
         });
+
+        // Carregar FAQs existentes do campo meta_schema
+        parseFaqFromSchema();
     });
+
+    let faqCount = 0;
+
+    function addFaqItem(pergunta = '', resposta = '') {
+        faqCount++;
+        const container = document.getElementById('faq-container');
+        const div = document.createElement('div');
+        div.style.cssText = 'background: var(--admin-card-bg, #1e293b); border: 1px solid var(--admin-border, #334155); border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; position: relative;';
+        div.innerHTML = `
+            <button type="button" onclick="this.parentElement.remove()" style="position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover">\u2715</button>
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+                <label style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Pergunta ${faqCount}</label>
+                <input type="text" class="form-control faq-pergunta" value="${pergunta.replace(/"/g, '&quot;')}" placeholder="Ex: Quanto tempo demora para entregar?">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label style="font-size: 0.8rem; color: var(--admin-text-muted); font-weight: 600;">Resposta</label>
+                <textarea class="form-control faq-resposta" rows="2" placeholder="Resposta completa...">${resposta}</textarea>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function gerarFaqSchema() {
+        const perguntas = document.querySelectorAll('.faq-pergunta');
+        const respostas = document.querySelectorAll('.faq-resposta');
+
+        if (perguntas.length === 0) {
+            alert('Adicione pelo menos uma pergunta antes de gerar o schema.');
+            return;
+        }
+
+        const mainEntity = [];
+        for (let i = 0; i < perguntas.length; i++) {
+            const p = perguntas[i].value.trim();
+            const r = respostas[i].value.trim();
+            if (p && r) {
+                mainEntity.push({
+                    "@type": "Question",
+                    "name": p,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": r
+                    }
+                });
+            }
+        }
+
+        if (mainEntity.length === 0) {
+            alert('Preencha pelo menos uma pergunta e resposta.');
+            return;
+        }
+
+        const schema = {
+            "@type": "FAQPage",
+            "mainEntity": mainEntity
+        };
+
+        const metaField = document.getElementById('meta_schema');
+        metaField.value = JSON.stringify(schema, null, 2);
+        metaField.style.borderColor = '#10b981';
+        setTimeout(() => {
+            metaField.style.borderColor = '';
+        }, 2000);
+
+        alert('FAQ Schema gerado com ' + mainEntity.length + ' pergunta(s)! O campo "Dados Estruturados" foi atualizado.');
+    }
+
+    function parseFaqFromSchema() {
+        const metaField = document.getElementById('meta_schema');
+        if (!metaField || !metaField.value.trim()) return;
+
+        try {
+            const schema = JSON.parse(metaField.value);
+            if (schema['@type'] === 'FAQPage' && schema.mainEntity) {
+                schema.mainEntity.forEach(item => {
+                    if (item['@type'] === 'Question') {
+                        addFaqItem(item.name, item.acceptedAnswer ? item.acceptedAnswer.text : '');
+                    }
+                });
+            }
+        } catch (e) {
+            // JSON invalido ou nao e FAQ, ignora
+        }
+    }
 </script>
 
 @endsection

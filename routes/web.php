@@ -140,6 +140,15 @@ Route::get('/metodologia-dos-dados', [InstitucionalController::class, 'metodolog
 
 /*
 |--------------------------------------------------------------------------
+| Ferramentas Úteis
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/ferramentas/declaracao-conteudo', [\App\Http\Controllers\FerramentasController::class, 'declaracaoConteudo'])
+    ->name('ferramentas.declaracao');
+
+/*
+|--------------------------------------------------------------------------
 | Admin - Autenticação
 |--------------------------------------------------------------------------
 */

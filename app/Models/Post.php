@@ -63,8 +63,21 @@ class Post extends Model
             $conteudo = preg_replace($pattern, '<a href="' . $url . '" title="Saiba mais sobre ' . $keyword . '" style="color: var(--cor-primaria); text-decoration: underline;">' . $keyword . '</a>', $conteudo, 1);
         }
 
-        // Se não houver tags HTML de bloco comuns, aplica nl2br para garantir quebras de linha
+        // Se não houver tags HTML de bloco, formata texto puro
         if (!preg_match('/<(p|div|ul|ol|h[1-6]|blockquote|table)/i', $conteudo)) {
+            // Unifica quebras de linha
+            $conteudo = str_replace(["\r\n", "\r"], "\n", $conteudo);
+
+            // Detecta possíveis títulos: linhas curtas (< 100 chars) isoladas por quebras duplas
+            // e que não terminam com ponto final (exceto se for interrogação/dois pontos)
+            $conteudo = preg_replace_callback('/(\n\n|^)(.{5,100}?)([:?])?(\n\n)/u', function ($matches) {
+                // Se terminar com ponto final e não for curto demais, provavelmente é parágrafo
+                if (substr(trim($matches[2]), -1) === '.' && strlen($matches[2]) > 60) {
+                    return $matches[0];
+                }
+                return $matches[1] . '<h2>' . trim($matches[2] . ($matches[3] ?? '')) . '</h2>' . $matches[4];
+            }, $conteudo);
+
             $conteudo = nl2br($conteudo);
         }
 

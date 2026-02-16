@@ -238,13 +238,26 @@
 }
 
 .content-body h2 {
-    font-size: 1.625rem;
-    font-weight: 700;
+    font-size: 1.75rem;
+    font-weight: 800;
     color: var(--text-h);
-    margin: 2.5rem 0 1rem;
-    letter-spacing: -0.015em;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--sl-100);
+    margin: 3rem 0 1.5rem;
+    letter-spacing: -0.025em;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--em-100);
+    position: relative;
+    padding-left: 1rem;
+}
+
+.content-body h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 14px;
+    width: 6px;
+    background: var(--brand);
+    border-radius: 4px;
 }
 
 .content-body h3 {

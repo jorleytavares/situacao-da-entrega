@@ -20,9 +20,9 @@ class StorePostRequest extends FormRequest
             'resumo' => 'nullable|string|max:500',
             'sge_summary' => 'nullable|string',
             'imagem_destaque' => 'nullable|image|max:10240', // 10MB para permitir upload antes da compressão
-            'imagem_alt' => 'required_with:imagem_destaque|string|max:255',
-            'imagem_title' => 'required_with:imagem_destaque|string|max:255',
-            'imagem_descricao' => 'required_with:imagem_destaque|string',
+            'imagem_alt' => 'nullable|string|max:255',
+            'imagem_title' => 'nullable|string|max:255',
+            'imagem_descricao' => 'nullable|string',
             'imagem_legenda' => 'nullable|string|max:255',
             'meta_schema' => 'nullable|string', // Validar JSON se possível
             'tags' => 'nullable|string',

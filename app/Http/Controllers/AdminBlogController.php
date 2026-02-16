@@ -49,8 +49,12 @@ class AdminBlogController extends Controller
         if ($request->hasFile('imagem_destaque')) {
             $file = $request->file('imagem_destaque');
             
+            // Fallbacks inteligentes para SEO
+            $seoTitle = $request->imagem_title ?? Str::slug($request->titulo);
+            $seoAlt = $request->imagem_alt ?? $request->titulo;
+
             try {
-                $uploadData = $this->optimizeAndUpload($file, $request->imagem_title);
+                $uploadData = $this->optimizeAndUpload($file, $seoTitle);
                 $data['imagem_destaque'] = $uploadData['path'];
 
                 // Register in Media Library
@@ -59,7 +63,7 @@ class AdminBlogController extends Controller
                     'path' => $uploadData['path'],
                     'mime_type' => $uploadData['mime_type'],
                     'size' => $uploadData['size'],
-                    'alt_text' => $request->imagem_alt ?? ($request->imagem_title ?? pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)),
+                    'alt_text' => $seoAlt,
                 ]);
             } catch (\Exception $e) {
                 // Fallback to original if optimization fails
@@ -72,7 +76,7 @@ class AdminBlogController extends Controller
                     'path' => $fullPath,
                     'mime_type' => $file->getMimeType(),
                     'size' => $file->getSize(),
-                    'alt_text' => $request->imagem_alt ?? ($request->imagem_title ?? pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)),
+                    'alt_text' => $seoAlt,
                 ]);
             }
         }
@@ -125,8 +129,12 @@ class AdminBlogController extends Controller
             
             $file = $request->file('imagem_destaque');
             
+            // Fallbacks inteligentes para SEO
+            $seoTitle = $request->imagem_title ?? Str::slug($request->titulo);
+            $seoAlt = $request->imagem_alt ?? $request->titulo;
+
             try {
-                $uploadData = $this->optimizeAndUpload($file, $request->imagem_title);
+                $uploadData = $this->optimizeAndUpload($file, $seoTitle);
                 $data['imagem_destaque'] = $uploadData['path'];
 
                 // Register in Media Library
@@ -135,7 +143,7 @@ class AdminBlogController extends Controller
                     'path' => $uploadData['path'],
                     'mime_type' => $uploadData['mime_type'],
                     'size' => $uploadData['size'],
-                    'alt_text' => $request->imagem_alt ?? ($request->imagem_title ?? pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)),
+                    'alt_text' => $seoAlt,
                 ]);
             } catch (\Exception $e) {
                 // Fallback to original if optimization fails
@@ -148,7 +156,7 @@ class AdminBlogController extends Controller
                     'path' => $fullPath,
                     'mime_type' => $file->getMimeType(),
                     'size' => $file->getSize(),
-                    'alt_text' => $request->imagem_alt ?? ($request->imagem_title ?? pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)),
+                    'alt_text' => $seoAlt,
                 ]);
             }
         }

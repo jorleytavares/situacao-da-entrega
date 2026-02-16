@@ -1,0 +1,125 @@
+[33mcommit a25b4512a2f07e55799d86c7bbb2485a6f945727[m
+Author: jorleytavares <tavaresjorley@gmail.com>
+Date:   Tue Feb 10 00:29:53 2026 -0400
+
+    Commit inicial - Situação da Entrega
+
+[1mdiff --git a/resources/views/pages/blog/show.blade.php b/resources/views/pages/blog/show.blade.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5f1f66a[m
+[1m--- /dev/null[m
+[1m+++ b/resources/views/pages/blog/show.blade.php[m
+[36m@@ -0,0 +1,113 @@[m
+[32m+[m[32m@extends('layouts.app')[m
+[32m+[m
+[32m+[m[32m@section('title', $post->titulo . ' - Situação da Entrega')[m
+[32m+[m[32m@section('description', $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160))[m
+[32m+[m[32m@section('og_image', $post->imagem_destaque ? asset($post->imagem_destaque) : asset('logo.svg'))[m
+[32m+[m
+[32m+[m[32m@section('head')[m
+[32m+[m[32m<link rel="stylesheet" href="{{ asset('css/post-theme.css') }}?v={{ time() }}">[m
+[32m+[m[32m<meta property="og:type" content="article" />[m
+[32m+[m[32m<meta property="og:title" content="{{ $post->titulo }}" />[m
+[32m+[m[32m<meta property="og:description" content="{{ $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160) }}" />[m
+[32m+[m[32m<meta property="og:url" content="{{ request()->url() }}" />[m
+[32m+[m[32m<meta property="og:site_name" content="{{ config('app.name', 'Situação da Entrega') }}" />[m
+[32m+[m[32m<meta property="og:locale" content="pt_BR" />[m
+[32m+[m[32m<meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}" />[m
+[32m+[m[32m<meta property="article:modified_time" content="{{ $post->updated_at->toIso8601String() }}" />[m
+[32m+[m[32m<meta property="article:author" content="{{ $post->autor_nome }}" />[m
+[32m+[m
+[32m+[m[32m@if($post->imagem_destaque)[m
+[32m+[m[32m<meta property="og:image" content="{{ asset($post->imagem_destaque) }}" />[m
+[32m+[m[32m<meta property="og:image:alt" content="{{ $post->imagem_alt ?? $post->titulo }}" />[m
+[32m+[m[32m<meta property="og:image:type" content="image/webp" />[m
+[32m+[m[32m@endif[m
+[32m+[m
+[32m+[m[32m<meta name="twitter:card" content="summary_large_image" />[m
+[32m+[m[32m<meta name="twitter:title" content="{{ $post->titulo }}" />[m
+[32m+[m[32m<meta name="twitter:description" content="{{ $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160) }}" />[m
+[32m+[m[32m@if($post->imagem_destaque)[m
+[32m+[m[32m<meta name="twitter:image" content="{{ asset($post->imagem_destaque) }}" />[m
+[32m+[m[32m<meta name="twitter:image:alt" content="{{ $post->imagem_alt ?? $post->titulo }}" />[m
+[32m+[m[32m@endif[m
+[32m+[m
+[32m+[m[32m<script type="application/ld+json">[m
+[32m+[m[32m    {!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}[m
+[32m+[m[32m</script>[m
+[32m+[m[32m@endsection[m
+[32m+[m
+[32m+[m[32m@section('content')[m
+[32m+[m[32m<div class="post-container">[m
+[32m+[m[32m    <article class="post-single">[m
+[32m+[m[32m        <header class="post-header">[m
+[32m+[m[32m            <div class="post-meta">[m
+[32m+[m[32m                <span class="post-category">BLOG</span>[m
+[32m+[m[32m                <span class="separator">-</span>[m
+[32m+[m[32m                <time datetime="{{ $post->published_at->toIso8601String() }}">[m
+[32m+[m[32m                    {{ $post->published_at->format('d/m/Y') }}[m
+[32m+[m[32m                </time>[m
+[32m+[m[32m            </div>[m
+[32m+[m
+[32m+[m[32m            <h1 class="post-title">{{ $post->titulo }}</h1>[m
+[32m+[m[41m            [m
+[32m+[m[32m            @if($post->subtitulo)[m
+[32m+[m[32m            <h2 class="post-subtitle">{{ $post->subtitulo }}</h2>[m
+[32m+[m[32m            @endif[m
+[32m+[m
+[32m+[m[32m            @if($post->sge_summary)[m
+[32m+[m[32m            <div class="sge-summary">[m
+[32m+[m[32m                <div class="sge-header">[m
+[32m+[m[32m                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>[m
+[32m+[m[32m                    <strong>RESUMO RÁPIDO (IA)</strong>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="sge-content">[m
+[32m+[m[32m                    {!! Str::markdown($post->sge_summary) !!}[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m            @endif[m
+[32m+[m
+[32m+[m[32m            @if($post->imagem_destaque)[m
+[32m+[m[32m            <figure class="post-featured-image">[m
+[32m+[m[32m                @if($post->imagem_legenda || $post->imagem_alt)[m
+[32m+[m[32m                <figcaption>{{ $post->imagem_legenda ?? $post->imagem_alt }}</figcaption>[m
+[32m+[m[32m                @endif[m
+[32m+[m[41m                [m
+[32m+[m[32m                <img src="{{ asset($post->imagem_destaque) }}"[m[41m [m
+[32m+[m[32m                     alt="{{ $post->imagem_alt ?? $post->titulo }}"[m[41m [m
+[32m+[m[32m                     title="{{ $post->imagem_title ?? $post->titulo }}"[m
+[32m+[m[32m                     width="720" height="405" style="width: 100%; height: auto; aspect-ratio: 16/9;">[m
+[32m+[m[41m                [m
+[32m+[m[32m                @if($post->imagem_descricao)[m
+[32m+[m[32m                <div class="sr-only" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">[m
+[32m+[m[32m                    {{ $post->imagem_descricao }}[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                @endif[m
+[32m+[m[32m            </figure>[m
+[32m+[m[32m            @endif[m
+[32m+[m[32m        </header>[m
+[32m+[m
+[32m+[m[32m        <div class="conteudo-post">[m
+[32m+[m[32m            {!! $post->conteudo_formatado !!}[m
+[32m+[m[32m        </div>[m
+[32m+[m
+[32m+[m[32m        <footer class="post-footer">[m
+[32m+[m[32m            <div class="author-card">[m
+[32m+[m[32m                <div class="author-avatar">[m
+[32m+[m[32m                    {{ substr($post->autor_nome, 0, 1) }}[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="author-info">[m
+[32m+[m[32m                    <strong>{{ $post->autor_nome }}</strong>[m
+[32m+[m[32m                    <span>Especialista em Logística</span>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m        </footer>[m
+[32m+[m[32m    </article>[m
+[32m+[m
+[32m+[m[32m    <div class="read-more-section">[m
+[32m+[m[32m        <h3>Continue Lendo</h3>[m
+[32m+[m[32m        <div class="read-more-links">[m
+[32m+[m[32m            <a href="{{ route('blog.index') }}" class="btn-secondary">Ver todos os artigos</a>[m
+[32m+[m[32m            <a href="{{ route('home') }}" class="btn-text">Voltar para a Home</a>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m</div>[m
+[32m+[m[32m@endsection[m

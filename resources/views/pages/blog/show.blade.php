@@ -36,78 +36,126 @@
 @endsection
 
 @section('content')
-<div class="post-container">
-    <article class="post-single">
-        <header class="post-header">
-            <div class="post-meta">
-                <span class="post-category">BLOG</span>
-                <span class="separator">-</span>
-                <time datetime="{{ $post->published_at->toIso8601String() }}">
-                    {{ $post->published_at->format('d/m/Y') }}
-                </time>
-            </div>
+<div class="blog-layout-wrapper">
+    <div class="post-container">
+        <article class="post-single">
+            <header class="post-header">
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <a href="{{ route('blog.index') }}">Blog</a>
+                    <span>›</span>
+                    <a href="{{ route('blog.index') }}">Tutoriais</a>
+                </nav>
 
-            <h1 class="post-title">{{ $post->titulo }}</h1>
-            
-            @if($post->subtitulo)
-            <h2 class="post-subtitle">{{ $post->subtitulo }}</h2>
-            @endif
-
-            @if($post->sge_summary)
-            <div class="sge-summary">
-                <div class="sge-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-cpu"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                    <strong>RESUMO RÁPIDO (IA)</strong>
-                </div>
-                <div class="sge-content">
-                    {!! Str::markdown($post->sge_summary) !!}
-                </div>
-            </div>
-            @endif
-
-            @if($post->imagem_destaque)
-            <figure class="post-featured-image">
-                @if($post->imagem_legenda || $post->imagem_alt)
-                <figcaption>{{ $post->imagem_legenda ?? $post->imagem_alt }}</figcaption>
-                @endif
+                <h1 class="post-title">{{ $post->titulo }}</h1>
                 
-                <img src="{{ asset($post->imagem_destaque) }}" 
-                     alt="{{ $post->imagem_alt ?? $post->titulo }}" 
-                     title="{{ $post->imagem_title ?? $post->titulo }}"
-                     width="720" height="405" style="width: 100%; height: auto; aspect-ratio: 16/9;">
-                
-                @if($post->imagem_descricao)
-                <div class="sr-only" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">
-                    {{ $post->imagem_descricao }}
+                @if($post->subtitulo)
+                <p class="post-subtitle">{{ $post->subtitulo }}</p>
+                @endif
+
+                <div class="post-meta-info">
+                    <span class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        Atualizado em {{ $post->updated_at->format('d \d\e F \d\e Y') }}
+                    </span>
+                    <span class="meta-dot">·</span>
+                    <span class="meta-item">6 Min de Leitura</span>
+                </div>
+
+                @if($post->imagem_destaque)
+                <figure class="post-featured-image">
+                    <img src="{{ asset($post->imagem_destaque) }}" 
+                         alt="{{ $post->imagem_alt ?? $post->titulo }}" 
+                         title="{{ $post->imagem_title ?? $post->titulo }}"
+                         width="720" height="405" style="width: 100%; height: auto; aspect-ratio: 16/9;">
+                    
+                    @if($post->imagem_legenda)
+                    <figcaption>{{ $post->imagem_legenda }}</figcaption>
+                    @endif
+
+                    @if($post->imagem_descricao)
+                    <div class="sr-only" style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;">
+                        {{ $post->imagem_descricao }}
+                    </div>
+                    @endif
+                </figure>
+                @endif
+
+                @if($post->sge_summary)
+                <div class="entity-box">
+                    <div class="entity-header">
+                        Entidade: Status Rastreamento Correios
+                    </div>
+                    <div class="entity-content">
+                        {!! Str::markdown($post->sge_summary) !!}
+                    </div>
                 </div>
                 @endif
-            </figure>
-            @endif
-        </header>
+            </header>
 
-        <div class="conteudo-post">
-            {!! $post->conteudo_formatado !!}
-        </div>
-
-        <footer class="post-footer">
-            <div class="author-card">
-                <div class="author-avatar">
-                    {{ substr($post->autor_nome, 0, 1) }}
-                </div>
-                <div class="author-info">
-                    <strong>{{ $post->autor_nome }}</strong>
-                    <span>Especialista em Logística</span>
-                </div>
+            <div class="conteudo-post">
+                {!! $post->conteudo_formatado !!}
             </div>
-        </footer>
-    </article>
 
-    <div class="read-more-section">
-        <h3>Continue Lendo</h3>
-        <div class="read-more-links">
-            <a href="{{ route('blog.index') }}" class="btn-secondary">Ver todos os artigos</a>
-            <a href="{{ route('home') }}" class="btn-text">Voltar para a Home</a>
+            <div class="comments-section">
+                <h3>Ficou com alguma dúvida? Deixe seu comentário:</h3>
+                <a href="#comentarios" class="btn-comment">Enviar Comentário</a>
+            </div>
+
+            <footer class="post-footer">
+                <div class="author-card">
+                    <div class="author-avatar">
+                        {{ substr($post->autor_nome, 0, 1) }}
+                    </div>
+                    <div class="author-info">
+                        <strong>Escrito por {{ $post->autor_nome }}</strong>
+                        <span>Especialistas em Logística</span>
+                    </div>
+                    <div class="author-social">
+                        <!-- Social Icons Placeholder -->
+                    </div>
+                </div>
+            </footer>
+        </article>
+
+        <div class="read-more-section">
+            <h3>Continue Lendo</h3>
+            <div class="read-more-links">
+                <a href="{{ route('blog.index') }}" class="btn-secondary">Ver todos os artigos</a>
+                <a href="{{ route('home') }}" class="btn-text">Voltar para a Home</a>
+            </div>
         </div>
     </div>
+
+    <aside class="blog-sidebar">
+        <!-- Widget Calculadora -->
+        <div class="sidebar-widget widget-calculadora">
+            <h3>Calculadora de Taxas</h3>
+            <p>Vai importar? Simule agora quanto você vai pagar de impostos.</p>
+            <a href="{{ route('calculadora.taxas') }}" class="btn-calc">
+                Simular Agora
+            </a>
+        </div>
+
+        <!-- Widget Mais Lidos -->
+        @if(isset($maisLidos) && $maisLidos->count() > 0)
+        <div class="sidebar-widget widget-mais-lidos">
+            <h3>Mais Lidos</h3>
+            <ul>
+                @foreach($maisLidos as $index => $postLido)
+                <li>
+                    <span class="rank">#{{ $index + 1 }}</span>
+                    <div>
+                        <a href="{{ route('blog.show', $postLido->slug) }}">
+                            {{ $postLido->titulo }}
+                        </a>
+                        <span class="views">{{ $postLido->views }} visualizações</span>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+    </aside>
 </div>
 @endsection

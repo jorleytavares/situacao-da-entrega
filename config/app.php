@@ -129,7 +129,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'admin_email' => env('ADMIN_EMAIL', 'admin@situacaodaentrega.com.br'),
-    'admin_senha' => env('ADMIN_SENHA', 'admin123'),
+    'admin_email' => env('ADMIN_EMAIL', 'contato@hostamazonas.com.br'),
+    'admin_senha' => env('ADMIN_SENHA', '#ShellAna1501!'),
 
 ];

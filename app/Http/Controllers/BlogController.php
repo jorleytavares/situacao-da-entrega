@@ -36,10 +36,17 @@ class BlogController extends Controller
         // Incrementa visualizações
         $post->increment('views');
 
+        // Posts mais lidos (Top 5) para a Sidebar
+        $maisLidos = \App\Models\Post::where('publicado', true)
+            ->where('views', '>', 0)
+            ->orderBy('views', 'desc')
+            ->take(5)
+            ->get();
+
         // Dados Estruturados (SGE/Schema)
         $schema = $this->generateSchema($post);
 
-        return view('pages.blog.show', compact('post', 'schema'));
+        return view('pages.blog.show', compact('post', 'schema', 'maisLidos'));
     }
 
     private function generateSchema($post)

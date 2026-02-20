@@ -1,5 +1,37 @@
 # Relatório de Mudanças e Entrega
 
+## 📅 Data: 20/02/2026
+
+### 🔍 SEO On-page e Estrutura
+
+- **Home**:
+  - Ajuste completo da hierarquia de headings para 1 H1 único (sr-only) e H2/H3 semânticos.
+  - Títulos de cards e FAQs transformados em H3 para melhor escaneabilidade e acessibilidade.
+- **Single de Blog**:
+  - Subtítulo padronizado como H2 imediatamente após o H1 do artigo.
+  - Normalização de headings do conteúdo gerado via markdown (`<h1>` internos rebaixados para `<h2>`).
+
+### 🧠 Dados Estruturados (Schema.org)
+
+- **WebSite (global)**:
+  - Correção do JSON-LD no layout (`app.blade.php`), removendo sintaxe inválida que gerava erro de parsing no Google Search Console.
+  - Schema `WebSite` com `SearchAction` apontando para `/buscar?q={search_term_string}`.
+- **Home (`/`)**:
+  - Adicionada seção `WebPage` em JSON-LD com `name`, `url`, `description`, `inLanguage` e relacionamento `isPartOf` → `WebSite`.
+- **Single de Blog**:
+  - Adicionado JSON-LD do tipo `Article` com `headline`, `description`, `image`, `datePublished`, `dateModified`, `author` e `publisher`.
+  - Implementado `BreadcrumbList` (Home → Blog → Artigo) para rich snippets de trilha de navegação.
+
+### 🧭 Indexação e Robots
+
+- **robots.txt**:
+  - Removida diretiva não padrão `llms: https://situacaodaentrega.com.br/llms.txt`, que causava erro de "Unknown directive".
+  - Mantidas regras de bloqueio de `/admin/` e indicação de `Sitemap`.
+- **Canonical**:
+  - `rel="canonical"` centralizado no layout usando `secure_url(request()->path())` para forçar sempre `https://` como versão canônica (evita conflito entre versões HTTP/HTTPS no Search Console).
+
+---
+
 ## 📅 Data: 16/02/2026
 
 ### 💬 Sistema de Comentários (Novo Módulo)

@@ -55,7 +55,7 @@
     @endphp
     </script>
 
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="{{ secure_url(request()->path()) }}">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/search.css">
 

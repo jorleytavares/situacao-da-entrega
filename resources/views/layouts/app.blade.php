@@ -38,7 +38,7 @@
 
     <!-- JSON-LD WebSite Schema -->
     <script type="application/ld+json">
-        @php
+    @php
         $jsonLd = [
             "@context" => "https://schema.org",
             "@type" => "WebSite",
@@ -46,14 +46,13 @@
             "url" => url('/'),
             "potentialAction" => [
                 "@type" => "SearchAction",
-                "target" => url('/').
-                "/buscar?q={search_term_string}",
+                "target" => url('/') . "/buscar?q={search_term_string}",
                 "query-input" => "required name=search_term_string"
             ]
         ];
-        @endphp {
-            !!json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!
-        }
+
+        echo json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
     </script>
 
     <link rel="canonical" href="{{ url()->current() }}">

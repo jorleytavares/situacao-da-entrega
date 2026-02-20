@@ -28,7 +28,9 @@
         @foreach($problemas as $problema)
         <a href="{{ route('problema.mostrar', $problema->slug) }}" class="card-problema" title="Entenda o status: {{ $problema->titulo }}">
             <x-icon name="{{ $problema->slug }}" size="28" color="#F15C6D" />
-            <strong style="margin: 0.5rem 0; display: block; color: var(--cor-texto);">{{ $problema->titulo }}</strong>
+            <h3 style="margin: 0.5rem 0; display: block; color: var(--cor-texto); font-size: 1rem;">
+                {{ $problema->titulo }}
+            </h3>
             <span style="font-size: 0.9rem; color: var(--cor-texto-secundario);">Clique para entender</span>
         </a>
         @endforeach
@@ -64,7 +66,9 @@
                 <img src="{{ asset($post->imagem_destaque) }}" alt="{{ $post->imagem_alt }}" title="{{ $post->titulo }}" width="300" height="140" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             @endif
-            <strong style="display: block; margin-bottom: 0.5rem; color: var(--cor-texto);">{{ $post->titulo }}</strong>
+            <h3 style="display: block; margin-bottom: 0.5rem; color: var(--cor-texto); font-size: 1rem;">
+                {{ $post->titulo }}
+            </h3>
             <span style="font-size: 0.9rem; color: var(--cor-texto-secundario);">{{ Str::limit($post->resumo, 80) }}</span>
         </a>
         @endforeach
@@ -83,13 +87,13 @@
 
     <div style="display: grid; gap: 1rem; margin-bottom: 2rem;">
         <article>
-            <strong>O que significa encomenda parada?</strong>
+            <h3 style="font-size: 1rem; margin-bottom: 0.25rem;">O que significa encomenda parada?</h3>
             <p class="bloco-texto" style="font-size: 0.95rem;">
                 Geralmente significa que ela está aguardando processamento interno ou triagem.
             </p>
         </article>
         <article>
-            <strong>Devo me preocupar com atraso?</strong>
+            <h3 style="font-size: 1rem; margin-bottom: 0.25rem;">Devo me preocupar com atraso?</h3>
             <p class="bloco-texto" style="font-size: 0.95rem;">
                 Atrasos são comuns. A maioria é resolvida nos dias seguintes.
             </p>

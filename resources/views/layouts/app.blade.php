@@ -89,21 +89,12 @@
     <div id="id-layout-principal">
         <header id="id-header" role="banner">
             <div class="header-container">
-                @if(request()->routeIs('home'))
-                <h1>
-                    <a href="{{ route('home') }}" title="Ir para a página inicial">
-                        <img src="{{ asset('favicon.svg') }}" alt="Situação da Entrega Logo" title="Situação da Entrega - Logo" width="36" height="36" style="vertical-align: middle; margin-right: 8px;">
-                        Situação da Entrega
-                    </a>
-                </h1>
-                @else
                 <div class="site-title">
                     <a href="{{ route('home') }}" title="Ir para a página inicial">
                         <img src="{{ asset('favicon.svg') }}" alt="Situação da Entrega Logo" title="Situação da Entrega - Logo" width="36" height="36" style="vertical-align: middle; margin-right: 8px;">
                         Situação da Entrega
                     </a>
                 </div>
-                @endif
 
                 <!-- Busca Global -->
                 <form action="{{ route('busca') }}" method="GET" class="header-search d-none d-md-flex" role="search">

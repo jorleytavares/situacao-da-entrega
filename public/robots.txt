@@ -2,7 +2,6 @@ User-agent: *
 Disallow: /admin/
 
 Sitemap: https://situacaodaentrega.com.br/sitemap.xml
-llms: https://situacaodaentrega.com.br/llms.txt
 
 User-agent: GPTBot
 Allow: /

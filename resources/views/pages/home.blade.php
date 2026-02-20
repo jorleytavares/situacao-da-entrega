@@ -3,8 +3,28 @@
 @section('title', 'Situação da Entrega - Rastreamento Correios Nacional e Importação')
 @section('description', 'Sua compra foi TAXADA na alfândega ou está PARADA em Curitiba? Entenda o rastreio internacional e nacional (Loggi, Jadlog, Azul). Saiba como resolver pendências e prazos. Consulte grátis!')
 
+@section('head')
+@php
+    $webPageSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebPage',
+        'name' => 'Situação da Entrega - Rastreamento Correios Nacional e Importação',
+        'url' => url('/'),
+        'description' => 'Sua compra foi TAXADA na alfândega ou está PARADA em Curitiba? Entenda o rastreio internacional e nacional (Loggi, Jadlog, Azul). Saiba como resolver pendências e prazos. Consulte grátis!',
+        'inLanguage' => 'pt-BR',
+        'isPartOf' => [
+            '@type' => 'WebSite',
+            'url' => url('/'),
+            'name' => 'Situação da Entrega',
+        ],
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($webPageSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
+@endsection
+
 @section('content')
-<!-- Schema removido para debug -->
 
 <h1 class="sr-only">Situação da Entrega - Rastreamento e Soluções para Encomendas</h1>
 

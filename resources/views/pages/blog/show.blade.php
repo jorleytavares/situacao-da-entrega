@@ -5,16 +5,73 @@
 @section('og_image', $post->imagem_destaque ? asset($post->imagem_destaque) : asset('logo.svg'))
 
 @section('head')
-<!-- CSS Local do Post (Versionado) -->
 <link rel="stylesheet" href="{{ asset('css/post-theme.css') }}?v={{ filemtime(public_path('css/post-theme.css')) }}">
 
-<!-- Meta SEO -->
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ $post->titulo }}" />
 <meta property="og:description" content="{{ $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160) }}" />
 <meta property="og:url" content="{{ request()->url() }}" />
 <meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}" />
 <meta property="article:author" content="{{ $post->autor_nome }}" />
+
+@php
+    $articleSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'Article',
+        'headline' => $post->titulo,
+        'description' => $post->resumo ?? Str::limit(strip_tags($post->conteudo), 160),
+        'image' => $post->imagem_destaque ? asset($post->imagem_destaque) : asset('logo.svg'),
+        'datePublished' => optional($post->published_at)->toIso8601String(),
+        'dateModified' => optional($post->updated_at)->toIso8601String(),
+        'author' => [
+            '@type' => 'Person',
+            'name' => $post->autor_nome,
+        ],
+        'mainEntityOfPage' => [
+            '@type' => 'WebPage',
+            '@id' => request()->url(),
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => 'Situação da Entrega',
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('logo.svg'),
+            ],
+        ],
+    ];
+
+    $breadcrumbSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => 'Home',
+                'item' => url('/'),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => 'Blog',
+                'item' => route('blog.index'),
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $post->titulo,
+                'item' => request()->url(),
+            ],
+        ],
+    ];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($articleSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
 @endsection
 
 @section('content')

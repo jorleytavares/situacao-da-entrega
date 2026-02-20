@@ -79,14 +79,22 @@
                     Resumo do Especialista
                 </div>
                 <div class="content-body">
-                    {!! Str::markdown($post->sge_summary) !!}
+                    @php
+                        $summaryHtml = Str::markdown($post->sge_summary);
+                        $summaryHtml = str_replace(['<h1', '</h1>'], ['<h2', '</h2>'], $summaryHtml);
+                    @endphp
+                    {!! $summaryHtml !!}
                 </div>
             </div>
             @endif
 
             {{-- Corpo do Texto --}}
             <article class="content-body" id="post-body">
-                {!! $post->conteudo_formatado !!}
+                @php
+                    $bodyHtml = $post->conteudo_formatado;
+                    $bodyHtml = str_replace(['<h1', '</h1>'], ['<h2', '</h2>'], $bodyHtml);
+                @endphp
+                {!! $bodyHtml !!}
             </article>
 
             {{-- CTA Final --}}

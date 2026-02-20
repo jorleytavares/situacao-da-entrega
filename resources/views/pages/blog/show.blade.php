@@ -35,7 +35,7 @@
         <h1 class="post-title-main">{{ $post->titulo }}</h1>
 
         @if($post->subtitulo)
-        <p class="post-subtitle-main">{{ $post->subtitulo }}</p>
+        <h2 class="post-subtitle-main">{{ $post->subtitulo }}</h2>
         @endif
     </div>
 </div>
